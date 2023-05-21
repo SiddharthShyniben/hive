@@ -57,6 +57,10 @@
 		filter: brightness(0.8);
 		color: #CCCC;
 	}
+	
+	button {
+		min-width: 5rem;
+	}
 </style>
 
 <div id="main">
