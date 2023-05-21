@@ -1,51 +1,33 @@
 <style>
-	#main {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-	}
-
-	.row {
-		flex-grow: 1;
-
-		display: flex;
-		flex-direction: row;
-		
-		width: 120%;
-		transform: translateX(-10%);
-	}
-
-	.row:nth-child(2) {
-		transform: translateX(-2%);
-	}
-
 	.note {
 		margin: auto;
 		padding: 1em;
 		color: #FFFC;
-		background-color: #7E8788;
 		min-width: 15em;
 		max-width: 20em;
 		max-height: 12.5em;
+		border: 3px solid #95A5A6;
 		border-radius: 20px;
+
+		position: absolute;
 	}
 
-	.note:not(.main) {
+	.note:not(.central) {
 		opacity: 0.6;
 	}
 
 	.note.border-1 {
 		border-top-left-radius: 0px;
 	}
-	
+
 	.note.border-2 {
 		border-top-right-radius: 0px;
 	}
-	
+
 	.note.border-3 {
 		border-bottom-right-radius: 0px;
 	}
-	
+
 	.note.border-4 {
 		border-bottom-left-radius: 0px;
 	}
@@ -57,11 +39,11 @@
 	}
 
 	.blue {
-		background-color: #5773A6;
+		border-color: #3498db;
 	}
 
 	a {
-		color: #5773A6;
+		color: #3498db;
 	}
 
 	a:hover {
@@ -69,109 +51,184 @@
 	}
 
 	a:visited {
-		color: initial;
+		color: #3498db;
 	}
 
 	.red {
-		background-color: #B0463B;
+		border-color: #e74c3c;
 	}
 
 	.green {
-		background-color: #549D88;
+		border-color: #1abc9c;
+	}
+
+	.purple {
+		border-color: #9B59B6;
+	}
+
+	.yellow {
+		border-color: #F1C40F;
+	}
+	
+	.orange {
+		border-color: #E67E22;
 	}
 
 	ul {
 		padding-left: 1em;
 	}
 
-	.note.main {
+	.notes {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+	}
+
+	.note.central {
 		background-color: #0000;
-		border: 3px solid #FFDA03;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.note-1 {
+		right: 7%;
+		top: 0%;
+		transform: translate(50%, -50%);
+	}
+
+	.note-2 {
+		left: 7%;
+		top: 23%;
+		transform: translate(-50%, -50%);
+	}
+
+	.note-3 {
+		right: 23%;
+		bottom: 19%;
+		transform: translate(50%, 50%);
+	}
+
+	.note-4 {
+		bottom: 56%;
+		right: 12%;
+		transform: translate(50%, 50%);
+	}
+
+	.note-5 {
+		bottom: 13%;
+		left: 27%;
+		transform: translate(-50%, 50%);
+	}
+	
+	.note-6 {
+		top: 12%;
+		left: 53%;
+		transform: translate(-50%, -50%);
+	}
+	
+	.note-7 {
+		top: 59%;
+		left: 12%;
+		transform: translate(-50%, -50%);
+	}
+
+	.hive {
+		color: #F1C40F;
+	}
+
+	pre {
+		font-size: 16px;
+	}
+
+	.note {
+		overflow-y: hidden;
 	}
 </style>
 
-<div id="main">
-	<div class="row">
-		<div class="note blue border-3"><div>I don't know who you are. I don't know what you
-			want. If you are looking for ransom I can tell you I don't have
-			money, but what I do have are a very particular set of skills.
-			Skills I have acquired over a very long career. Skills that make me
-			a...</div></div>
-		<div class="note red border-2">
-			<strong>Brainstorm #4</strong>
-			<ul>
-				<li>Mobile game where players control a clumsy penguin trying to
-					navigate a crowded dance floor without tripping over its
-					own feet</li>
-			</ul>
-		</div>
-		<div class="note green border-4">
-			<strong>Unicorn Ideas</strong>
-			<ul>
-				<li>An app that predicts when your code will compile correctly
-					on the first try.</li>
-			</ul>
-		</div>
-		<div class="note border-1">
-			<strong>TODO</strong>
-			<ul>
-				<li>Fix that one line of code I've been delaying for weeks. c'mon, it's just one line!</li>
-			</ul>
-		</div>
+<div class="notes">
+	<div class="note yellow central border-4">Collaborate, capture, and organize your notes
+		effortlessly with <strong class='hive'>Hive</strong>.<br> <a href="#">Get started</a></div>
+	<div class="note note-1 red border-2">
+		I love the smell of napalm in the morning.
+		Bond. James Bond.
 	</div>
 	
-	<div class="row">
-		<div class="note border-3">
-			<strong>Coffee intake log</strong>
-			<ul>
-				<li>9:00 AM: Single espresso. Feeling productive.</li>
-				<li>11:00 AM: Double shot of espresso. Powering through those
-					nested loops.</li>
-			</ul>
-		</div>
-		<div class="note main">
-			Collaborative note taking for developers, <a href='https://github.com/SiddharthShyniben/hive'>by developers</a>.<br><br>
-			<strong><a href="/signup">Try it.</a></strong><br>
-		</div>
-		<div class="note blue border-1">
-			Guys, my code is giving me a headache. Anyone up for a pair
-			programming session? I'll bring the coffee, you bring the bug
-			spray. Let's squash those bugs together!
-		</div>
-		<div class="note border-1">Last night, I had a groundbreaking idea for a
-			new programming language. It's called 'Hyperscript'—you just think
-			about the code, and it writes itself. Next step: convince the world
-			that mind-reading is a necessary skill for developers.</div>
+	<div class="note note-2 blue border-3">
+		<strong>Unicorn Ideas</strong>
+		<ul>
+			<li>An app that predicts when your code will compile correctly on
+				the first try.</li>
+		</ul>
 	</div>
 	
-	<div class="row">
-		<div class="note blue border-3"><div>I don't know who you are. I don't know what you
-			want. If you are looking for ransom I can tell you I don't have
-			money, but what I do have are a very particular set of skills.
-			Skills I have acquired over a very long career. Skills that make me
-			a...</div></div>
-		<div class="note red border-2">
-			<strong>Brainstorm #4</strong>
-			<ul>
-				<li>Mobile game where players control a clumsy penguin trying to
-					navigate a crowded dance floor without tripping over its
-					own feet</li>
-			</ul>
-		</div>
-		<div class="note green border-4">
-			<strong>Unicorn Ideas</strong>
-			<ul>
-				<li>An app that predicts when your code will compile correctly
-					on the first try.</li>
-				<li>A coffee machine that automatically refills itself when it
-					detects a coding error.</li>
-			</ul>
-		</div>
-		<div class="note border-1">
-			<strong>TODO</strong>
-			<ul>
-				<li>Fix that one line of code I've been delaying for weeks. c'mon, it's just one line!</li>
-			</ul>
-		</div>
+	<div class="note note-3 green border-4">
+		<strong>TODO</strong>
+		<ul>
+			<li>Fix #69420. It's literally one line. <strong>DO IT</strong></li>
+			<li>Add a secret developer mode that turns all UI elements into
+				ASCII art.</li>
+			<li><strike>Add light mode</strike> No.</li>
+		</ul>
+	</div>
+	
+	<div class="note note-4 purple border-1">
+		<strong>I woke up at 3am</strong>
+		<ul>
+			<li>Just had a crazy idea: An app that generates random code
+				comments like 'You're doing great, sweetie!' or 'Code like the
+				wind, bullseye!' Instant motivation boost.</li>
+		</ul>
+	</div>
+	
+	<div class="note note-5 orange border-3">Design a fashion brand that
+		specializes in clothing made entirely out of recycled bubble wrap,
+		creating the trendiest, most protective outfits in town. </div>
+	
+	<div class="note note-6 border-1">Publish article "The Fashionable
+		Supervillain, Embodying the Dark Charm of Iconic Antagonists Escapes
+		from a Maximum-Security Doghouse Using an Unbreakable Toothpick,
+		Triggers a Global Dance Revolution Based on Interpretive Mop
+		Maneuvers"</div>
+	
+	<div class="note note-7 red border-2">
+		<pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">ListItemWrapper(Vec</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">ListItem</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #66d9ef">static</span><span style="color: #f92672">&gt;&gt;</span><span style="color: #f8f8f2">);</span>
+
+			<span style="color: #66d9ef">impl</span> <span style="color:
+			#f8f8f2">From</span><span style="color: #f92672">&lt;</span><span
+				style="color: #f8f8f2">Vec</span><span style="color:
+				#f92672">&lt;</span><span style="color: #f8f8f2">std</span><span
+				style="color: #f92672">::</span><span style="color:
+				#f8f8f2">string</span><span style="color:
+				#f92672">::</span><span style="color:
+				#f8f8f2">String</span><span style="color:
+				#f92672">&gt;&gt;</span> <span style="color: #66d9ef">for</span>
+			<span style="color: #f8f8f2">ListItemWrapper</span> <span
+				style="color: #f8f8f2">&lcub;</span>
+	<span style="color: #66d9ef">fn</span> <span style="color:
+		#f8f8f2">from(strings</span><span style="color: #f92672">:</span> <span
+				style="color: #f8f8f2">Vec</span><span style="color:
+				#f92672">&lt;</span><span style="color: #f8f8f2">std</span><span
+				style="color: #f92672">::</span><span style="color:
+				#f8f8f2">string</span><span style="color:
+				#f92672">::</span><span style="color:
+				#f8f8f2">String</span><span style="color:
+				#f92672">&gt;</span><span style="color: #f8f8f2">)</span> <span
+				style="color: #f92672">-&gt;</span> <span style="color:
+				#f8f8f2">Self</span> <span style="color: #f8f8f2">&lcub;</span>
+		<span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">list_items</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Vec</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">ListItem</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #66d9ef">static</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">strings</span>
+			<span style="color: #f8f8f2">.into_iter()</span>
+			<span style="color: #f8f8f2">.map(</span><span style="color: #f92672">|</span><span style="color: #f8f8f2">url</span><span style="color: #f92672">|</span> <span style="color: #f8f8f2">ListItem</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">url))</span>
+			<span style="color: #f8f8f2">.collect();</span>
+
+		<span style="color: #f8f8f2">ListItemWrapper(list_items)</span>
+	<span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+		</pre>
+
 	</div>
 </div>
