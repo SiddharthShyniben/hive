@@ -77,6 +77,9 @@
 	}
 
 	function isValid(username: string, password: string): boolean {
-		return username.length > 3 && password.length > 0;
+		if (username.length < 3) return false;
+		if (password.length <= 0) return false;
+		if (username.includes(' ')) return false;
+		return true;
 	}
 </script>
