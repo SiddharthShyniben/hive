@@ -19,6 +19,7 @@
 	}
 	
 	input {
+		color: inherit;
 		padding: 0.75rem;
 		width: 22ch;
 		background-color: #0000;
@@ -27,7 +28,7 @@
 		border-bottom-right-radius: 0;
 		margin: 0.5rem 2rem;
 		width: calc(100% - 4rem);
-		transition: border-color 500ms;
+		transition: border-color 250ms, outline 250ms;
 	}
 
 	button {
@@ -39,23 +40,43 @@
 		border-bottom-right-radius: 0;
 		color: inherit;
 		padding: 0.75rem;
-		transition: border-color 500ms;
+		transition: border-color 250ms, outline 250ms, brightness 100ms, color 100ms;
 	}
 
-	button:hover, input:hover {
+	button:hover:not(disabled), input:hover {
 		border-color: #CCCC;
 		background-color: #F1C40F08;
 	}
 
-	button:focus, input:focus {
+	button:focus:not(disabled), input:focus {
 		border-color: #F1C40F;
 		outline: solid #F1C40F;
+	}
+
+	button[disabled] {
+		filter: brightness(0.8);
+		color: #CCCC;
 	}
 </style>
 
 <div id="main">
 	<h1>Get started with Hive!</h1>
-	<input type="text" placeholder="Username"><br>
-	<input type="password" placeholder="Password"><br>
-	<button type="submit">Sign up</button>
+	<input type="text" placeholder="Username" bind:value={username}><br>
+	<input type="password" placeholder="Password" bind:value={password}><br>
+	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Sign up</button>
 </div>
+
+<script lang="ts">
+	let username = '';
+	let password = '';
+
+	function submit(): void {
+		console.log(username, password);
+		username = '';
+		password = '';
+	}
+
+	function isValid(username: string, password: string): boolean {
+		return username.length > 3 && password.length > 0;
+	}
+</script>
