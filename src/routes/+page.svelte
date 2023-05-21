@@ -20,7 +20,7 @@
 	}
 
 	.note {
-		margin: 1em;
+		margin: auto;
 		padding: 1em;
 		color: #FFFC;
 		background-color: #7E8788;
@@ -133,7 +133,7 @@
 			Collaborative note taking for developers, <a href='https://github.com/SiddharthShyniben/hive'>by developers</a>.<br><br>
 			<strong><a href="/signup">Try it.</a></strong><br>
 		</div>
-		<div class="note green border-1">
+		<div class="note blue border-1">
 			Guys, my code is giving me a headache. Anyone up for a pair
 			programming session? I'll bring the coffee, you bring the bug
 			spray. Let's squash those bugs together!
