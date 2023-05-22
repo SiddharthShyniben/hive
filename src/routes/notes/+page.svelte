@@ -2,19 +2,18 @@
 	import type { Models } from 'appwrite';
 	import { account } from '../../appwrite';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 	let user: Models.User<Models.Preferences> | undefined;
-	try {
-		account
-			.get()
-			.then((account) => (user = account))
-			.catch(() => goto('/login'));
-	} catch (e) {
-		goto('/login');
-	}
+	account
+		.get()
+		.then((account) => (user = account))
+		.catch(() => {
+			if (browser) goto('/login')
+		});
 </script>
 
 {#if user}
-	<h1>Hello, {user.name}</h1>
+<h1>Hello, {user.name}</h1>
 {:else}
 	<div class="overlay">
 		<div class="lds-ellipsis">
