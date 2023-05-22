@@ -19,7 +19,7 @@
 	}
 
 	button {
-		margin-bottom: 1.34em;
+		margin-bottom: 1.34rem;
 	}
 
 	.overlay {
@@ -38,19 +38,24 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
+
+	small {
+		margin: 2rem;
+	}
 </style>
 
 {#if processing}
-<div class="overlay">
-	<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-</div>
+	<div class="overlay">
+		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+	</div>
 {/if}
 <div id="main">
 	<h1>Get started with Hive!</h1>
 	<input type="text" placeholder="Username" bind:value={username} required><br>
 	<input type="email" placeholder="Email" bind:value={email} required><br>
 	<input type="password" placeholder="Password" bind:value={password} required><br>
-	<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}>Sign up</button>
+	<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}>Sign up</button><br>
+	<small>Already have an account? <a href="/login">Log In</a></small>
 </div>
 
 <script lang="ts">
