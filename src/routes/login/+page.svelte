@@ -17,13 +17,19 @@
 		margin-left: 2rem;
 		padding: 0;
 	}	
+	small {
+		margin: 2rem;
+		margin-top: 1rem !important;
+	}
+
 </style>
 
 <div id="main">
 	<h1>Welcome back!</h1>
 	<input type="text" placeholder="Username" bind:value={username}><br>
 	<input type="password" placeholder="Password" bind:value={password}><br>
-	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button>
+	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button><br>
+	<small>Don't have an account? <a href="/signup">Sign up</a></small>
 </div>
 
 <script lang="ts">
