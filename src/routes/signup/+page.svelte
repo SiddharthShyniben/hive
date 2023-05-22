@@ -21,8 +21,30 @@
 	button {
 		margin-bottom: 1.34em;
 	}
+
+	.overlay {
+		width: 100vw;
+		height: 100vh;
+		background-color: #0007;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 999;
+	}
+
+	.lds-ellipsis {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 </style>
 
+{#if processing}
+<div class="overlay">
+	<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+</div>
+{/if}
 <div id="main">
 	<h1>Get started with Hive!</h1>
 	<input type="text" placeholder="Username" bind:value={username} required><br>
@@ -32,21 +54,26 @@
 </div>
 
 <script lang="ts">
-	import { redirect } from '@sveltejs/kit';
 	import {createUser, isValid} from '../../appwrite';
+	import {goto} from '$app/navigation';
+	let processing = false;
 	let username = '';
 	let email = '';
 	let password = '';
 
 	function submit(): void {
+		processing = true;
 		console.log(username, email, password);
 		createUser(username, email, password)?.then(() => {
 			// TODO: auto login
 			// TODO better error handling
-			redirect(303, '/dashboard');
-		}).catch(e => alert(e.message));
-		username = '';
-		email = '';
-		password = '';
+			goto('/dashboard');
+		}).catch(e => {
+			processing = false
+			alert(e.message)
+			username = '';
+			email = '';
+			password = '';
+		});
 	}
 </script>
