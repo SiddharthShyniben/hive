@@ -1,37 +1,3 @@
-<style>
-	#main {
-		width: 30rem;
-		min-height: 20rem;
-		border: 3px solid #f1c40f;
-		border-radius: 20px;
-		border-bottom-right-radius: 0;
-		padding: 1rem;
-
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-	
-	h1 {
-		margin-left: 2rem;
-		padding: 0;
-	}	
-	small {
-		margin: 2rem;
-		margin-top: 1rem !important;
-	}
-
-</style>
-
-<div id="main">
-	<h1>Welcome back!</h1>
-	<input type="text" placeholder="Username" bind:value={username}><br>
-	<input type="password" placeholder="Password" bind:value={password}><br>
-	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button><br>
-	<small>Don't have an account? <a href="/signup">Sign up</a></small>
-</div>
-
 <script lang="ts">
 	let username = '';
 	let password = '';
@@ -54,5 +20,39 @@
 	<h1>Welcome back!</h1>
 	<input type="text" placeholder="Username" bind:value={username} /><br />
 	<input type="password" placeholder="Password" bind:value={password} /><br />
+	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button><br
+	/>
+	<small>Don't have an account? <a href="/signup">Sign up</a></small>
+</div>
+
+<div id="main">
+	<h1>Welcome back!</h1>
+	<input type="text" placeholder="Username" bind:value={username} /><br />
+	<input type="password" placeholder="Password" bind:value={password} /><br />
 	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button>
 </div>
+
+<style>
+	#main {
+		width: 30rem;
+		min-height: 20rem;
+		border: 3px solid #f1c40f;
+		border-radius: 20px;
+		border-bottom-right-radius: 0;
+		padding: 1rem;
+
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	h1 {
+		margin-left: 2rem;
+		padding: 0;
+	}
+	small {
+		margin: 2rem;
+		margin-top: 1rem !important;
+	}
+</style>
