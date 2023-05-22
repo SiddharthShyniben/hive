@@ -11,6 +11,12 @@ export function createUser(username: string, email: string, password: string) {
 	return account.create(ID.unique(), email, password, username);
 }
 
+export function login(email: string, password: string) {
+	if (!isValid('fake_username', email, password)) return null;
+
+	return account.createEmailSession(email, password);
+}
+
 export function isValid(username: string, email: string, password: string): boolean {
 	if (username.length < 3) return false;
 	if (password.length < 8) return false;
