@@ -1,6 +1,6 @@
 <script lang="ts">
-	import {goto} from '$app/navigation';
-	import {isValid, login} from '../../appwrite';
+	import { goto } from '$app/navigation';
+	import { isValid, login } from '../../appwrite';
 	let email = '';
 	let password = '';
 	let processing = false;
@@ -8,19 +8,20 @@
 	function submit(): void {
 		processing = true;
 		console.log(email, password);
-		login(email, password)?.then(() => {
-			goto('/notes');
-		}).catch((e: Error) => {
-			// TODO better error handling
-			processing = false;
-			alert(e.message);
-			email = '';
-			password = '';
-		});
+		login(email, password)
+			?.then(() => {
+				goto('/notes');
+			})
+			.catch((e: Error) => {
+				// TODO better error handling
+				processing = false;
+				alert(e.message);
+				email = '';
+				password = '';
+			});
 	}
 </script>
 
-	
 {#if processing}
 	<div class="overlay">
 		<div class="lds-ellipsis">
@@ -35,7 +36,9 @@
 	<h1>Welcome back!</h1>
 	<input type="text" placeholder="Email" bind:value={email} /><br />
 	<input type="password" placeholder="Password" bind:value={password} /><br />
-	<button type="submit" on:click={submit} disabled={!isValid('fake_username', email, password)}>Log in</button><br /><br>
+	<button type="submit" on:click={submit} disabled={!isValid('fake_username', email, password)}
+		>Log in</button
+	><br /><br />
 	<small>Don't have an account? <a href="/signup">Sign up</a></small>
 </div>
 
@@ -58,7 +61,7 @@
 		margin-left: 2rem;
 		padding: 0;
 	}
-	
+
 	.overlay {
 		width: 100vw;
 		height: 100vh;
@@ -75,7 +78,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	small {
 		margin: 2rem;
 	}

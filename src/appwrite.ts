@@ -4,7 +4,7 @@ const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProje
 const account = new Account(client);
 
 export default client;
-export {account};
+export { account };
 
 export function createUser(username: string, email: string, password: string) {
 	if (!isValid(username, email, password)) return null;

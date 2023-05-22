@@ -1,10 +1,13 @@
 <script lang="ts">
-	import type {Models} from 'appwrite';
-	import {account} from '../../appwrite';
-	import {goto} from '$app/navigation';
+	import type { Models } from 'appwrite';
+	import { account } from '../../appwrite';
+	import { goto } from '$app/navigation';
 	let user: Models.User<Models.Preferences> | undefined;
 	try {
-		account.get().then(account => user = account).catch(() => goto('/login'));
+		account
+			.get()
+			.then((account) => (user = account))
+			.catch(() => goto('/login'));
 	} catch (e) {
 		goto('/login');
 	}
