@@ -9,7 +9,7 @@
 		processing = true;
 		console.log(email, password);
 		login(email, password)?.then(() => {
-			goto('/dashboard');
+			goto('/notes');
 		}).catch((e: Error) => {
 			// TODO better error handling
 			processing = false;

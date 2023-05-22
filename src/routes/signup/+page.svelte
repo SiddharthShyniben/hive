@@ -13,7 +13,7 @@
 			?.then(() => {
 				// TODO: auto login
 				// TODO better error handling
-				goto('/dashboard');
+				goto('/notes');
 			})
 			.catch((e) => {
 				processing = false;
