@@ -1,35 +1,22 @@
 <script lang="ts">
-	let username = '';
+	import {isValid} from '../../appwrite';
+	let email = '';
 	let password = '';
 
 	function submit(): void {
-		console.log(username, password);
-		username = '';
+		console.log(email, password);
+		email = '';
 		password = '';
-	}
-
-	function isValid(username: string, password: string): boolean {
-		if (username.length < 3) return false;
-		if (password.length <= 0) return false;
-		if (username.includes(' ')) return false;
-		return true;
 	}
 </script>
 
 <div id="main">
 	<h1>Welcome back!</h1>
-	<input type="text" placeholder="Username" bind:value={username} /><br />
+	<input type="text" placeholder="Email" bind:value={email} /><br />
 	<input type="password" placeholder="Password" bind:value={password} /><br />
-	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button><br
+	<button type="submit" on:click={submit} disabled={!isValid('fake_username', email, password)}>Log in</button><br
 	/>
 	<small>Don't have an account? <a href="/signup">Sign up</a></small>
-</div>
-
-<div id="main">
-	<h1>Welcome back!</h1>
-	<input type="text" placeholder="Username" bind:value={username} /><br />
-	<input type="password" placeholder="Password" bind:value={password} /><br />
-	<button type="submit" on:click={submit} disabled={!isValid(username, password)}>Log in</button>
 </div>
 
 <style>
