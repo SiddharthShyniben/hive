@@ -1,3 +1,50 @@
+<script lang="ts">
+	import { createUser, isValid } from '../../appwrite';
+	import { goto } from '$app/navigation';
+	let processing = false;
+	let username = '';
+	let email = '';
+	let password = '';
+
+	function submit(): void {
+		processing = true;
+		console.log(username, email, password);
+		createUser(username, email, password)
+			?.then(() => {
+				// TODO: auto login
+				// TODO better error handling
+				goto('/dashboard');
+			})
+			.catch((e) => {
+				processing = false;
+				alert(e.message);
+				username = '';
+				email = '';
+				password = '';
+			});
+	}
+</script>
+
+{#if processing}
+	<div class="overlay">
+		<div class="lds-ellipsis">
+			<div />
+			<div />
+			<div />
+			<div />
+		</div>
+	</div>
+{/if}
+<div id="main">
+	<h1>Get started with Hive!</h1>
+	<input type="text" placeholder="Username" bind:value={username} required /><br />
+	<input type="email" placeholder="Email" bind:value={email} required /><br />
+	<input type="password" placeholder="Password" bind:value={password} required /><br />
+	<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}
+		>Sign up</button
+	>
+</div>
+
 <style>
 	#main {
 		width: 30rem;
@@ -12,7 +59,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	h1 {
 		margin-left: 2rem;
 		padding: 0;
@@ -39,41 +86,3 @@
 		transform: translate(-50%, -50%);
 	}
 </style>
-
-{#if processing}
-<div class="overlay">
-	<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-</div>
-{/if}
-<div id="main">
-	<h1>Get started with Hive!</h1>
-	<input type="text" placeholder="Username" bind:value={username} required><br>
-	<input type="email" placeholder="Email" bind:value={email} required><br>
-	<input type="password" placeholder="Password" bind:value={password} required><br>
-	<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}>Sign up</button>
-</div>
-
-<script lang="ts">
-	import {createUser, isValid} from '../../appwrite';
-	import {goto} from '$app/navigation';
-	let processing = false;
-	let username = '';
-	let email = '';
-	let password = '';
-
-	function submit(): void {
-		processing = true;
-		console.log(username, email, password);
-		createUser(username, email, password)?.then(() => {
-			// TODO: auto login
-			// TODO better error handling
-			goto('/dashboard');
-		}).catch(e => {
-			processing = false
-			alert(e.message)
-			username = '';
-			email = '';
-			password = '';
-		});
-	}
-</script>

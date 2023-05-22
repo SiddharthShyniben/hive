@@ -12,7 +12,7 @@ input {
 	padding: 0.75rem;
 	width: 22ch;
 	background-color: #0000;
-	border: 1px solid #CCC9;
+	border: 1px solid #ccc9;
 	border-radius: 20px;
 	border-bottom-right-radius: 0;
 	margin: 0.5rem 2rem;
@@ -24,7 +24,7 @@ button {
 	margin: 0.5em;
 	margin-left: 2rem;
 	background: none;
-	border: 1px solid #CCC9;
+	border: 1px solid #ccc9;
 	border-radius: 20px;
 	border-bottom-right-radius: 0;
 	color: inherit;
@@ -32,19 +32,21 @@ button {
 	transition: border-color 250ms, outline 250ms, brightness 100ms, color 100ms;
 }
 
-button:hover:not(disabled), input:hover {
-	border-color: #CCCC;
-	background-color: #F1C40F08;
+button:hover:not(disabled),
+input:hover {
+	border-color: #cccc;
+	background-color: #f1c40f08;
 }
 
-button:focus:not(disabled), input:focus {
-	border-color: #F1C40F;
-	outline: solid #F1C40F;
+button:focus:not(disabled),
+input:focus {
+	border-color: #f1c40f;
+	outline: solid #f1c40f;
 }
 
 button[disabled] {
 	filter: brightness(0.8);
-	color: #CCCC;
+	color: #cccc;
 }
 
 button {
@@ -94,27 +96,26 @@ a:visited {
 	animation: lds-ellipsis3 0.6s infinite;
 }
 @keyframes lds-ellipsis1 {
-0% {
-	transform: scale(0);
-}
-100% {
-	transform: scale(1);
-}
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 @keyframes lds-ellipsis3 {
-0% {
-	transform: scale(1);
-}
-100% {
-	transform: scale(0);
-}
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
 }
 @keyframes lds-ellipsis2 {
-0% {
-	transform: translate(0, 0);
+	0% {
+		transform: translate(0, 0);
+	}
+	100% {
+		transform: translate(24px, 0);
+	}
 }
-100% {
-	transform: translate(24px, 0);
-}
-}
-
