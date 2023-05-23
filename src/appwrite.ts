@@ -1,10 +1,11 @@
-import { Account, Client, ID } from 'appwrite';
+import { Account, Avatars, Client, ID } from 'appwrite';
 
 const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('hive');
 const account = new Account(client);
+const avatars = new Avatars(client);
 
 export default client;
-export { account };
+export { account, avatars };
 
 export function createUser(username: string, email: string, password: string) {
 	if (!isValid(username, email, password)) return null;
