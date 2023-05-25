@@ -1,30 +1,35 @@
+<script lang="ts">
+	import Note from '$lib/Note.svelte';
+</script>
+
 <div class="notes">
-	<div class="note yellow central border-4">
+	<Note color="yellow" border="3" classes="central">
 		Collaborate, capture, and organize your notes effortlessly with <strong class="hive"
 			>Hive</strong
 		>.<br /> <a href="/signup">Get started</a>
-	</div>
-	<div class="note note-1 red border-2">
-		I love the smell of napalm in the morning. Bond. James Bond.
-	</div>
+	</Note>
 
-	<div class="note note-2 blue border-3">
+	<Note color="red" border="2" classes="note-1" dim>
+		I love the smell of napalm in the morning. Bond. James Bond.
+	</Note>
+
+	<Note color="blue" border="4" classes="note-2" dim>
 		<strong>Unicorn Ideas</strong>
 		<ul>
 			<li>An app that predicts when your code will compile correctly on the first try.</li>
 		</ul>
-	</div>
+	</Note>
 
-	<div class="note note-3 green border-4">
+	<Note color="green" border="3" classes="note-3" dim>
 		<strong>TODO</strong>
 		<ul>
 			<li>Fix #69420. It's literally one line. <strong>DO IT</strong></li>
 			<li>Add a secret developer mode that turns all UI elements into ASCII art.</li>
 			<li><strike>Add light mode</strike> No.</li>
 		</ul>
-	</div>
+	</Note>
 
-	<div class="note note-4 purple border-1">
+	<Note color="purple" border="1" classes="note-4" dim>
 		<strong>I woke up at 3am</strong>
 		<ul>
 			<li>
@@ -32,20 +37,20 @@
 				sweetie!' or 'Code like the wind, bullseye!' Instant motivation boost.
 			</li>
 		</ul>
-	</div>
+	</Note>
 
-	<div class="note note-5 orange border-3">
+	<Note color="orange" border="3" classes="note note-5" dim>
 		Design a fashion brand that specializes in clothing made entirely out of recycled bubble wrap,
 		creating the trendiest, most protective outfits in town.
-	</div>
+	</Note>
 
-	<div class="note note-6 border-1">
-		Publish article "The Fashionable Supervillain, Embodying the Dark Charm of Iconic Antagonists
+	<Note border="1" classes="note note-6" dim>
+		Finish "The Fashionable Supervillain, Embodying the Dark Charm of Iconic Antagonists
 		Escapes from a Maximum-Security Doghouse Using an Unbreakable Toothpick, Triggers a Global Dance
 		Revolution Based on Interpretive Mop Maneuvers"
-	</div>
+	</Note>
 
-	<div class="note note-7 red border-2">
+	<Note color="red" border="2" classes="note note-7" dim>
 		<pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">struct</span> <span
 				style="color: #f8f8f2">ListItemWrapper(Vec</span
 			><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">ListItem</span><span
@@ -119,64 +124,17 @@
 	<span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 		</pre>
-	</div>
+	</Note>
 </div>
 
 <style>
-	.note {
-		margin: auto;
-		padding: 1em;
-		color: #fffc;
-		min-width: 15em;
-		max-width: 20em;
-		max-height: 12.5em;
-		border: 3px solid #95a5a6;
-		border-radius: 20px;
-
-		position: absolute;
-	}
-
-	.note:not(.central) {
-		opacity: 0.6;
-	}
-
-	.note.border-1 {
-		border-top-left-radius: 0px;
-	}
-	.note.border-2 {
-		border-top-right-radius: 0px;
-	}
-	.note.border-3 {
-		border-bottom-right-radius: 0px;
-	}
-	.note.border-4 {
-		border-bottom-left-radius: 0px;
-	}
-
-	.blue {
-		border-color: #3498db;
-	}
-	.red {
-		border-color: #e74c3c;
-	}
-	.green {
-		border-color: #1abc9c;
-	}
-	.purple {
-		border-color: #9b59b6;
-	}
-	.yellow {
-		border-color: #f1c40f;
-	}
-	.orange {
-		border-color: #e67e22;
-	}
 	.hive {
 		color: #f1c40f;
 	}
 
-	ul {
+	.notes :global(ul) {
 		padding-left: 1em;
+		margin-bottom: 0;
 	}
 
 	.notes {
@@ -185,7 +143,7 @@
 		height: 100vh;
 	}
 
-	.note.central {
+	.notes > :global(.note.central) {
 		background-color: #0000;
 		color: white;
 		font-weight: bold;
@@ -196,43 +154,43 @@
 		transform: translate(-50%, -50%);
 	}
 
-	.note-1 {
+	.notes > :global(.note-1) {
 		right: 7%;
 		top: 0%;
 		transform: translate(50%, -50%);
 	}
 
-	.note-2 {
+	.notes > :global(.note-2) {
 		left: 7%;
 		top: 23%;
 		transform: translate(-50%, -50%);
 	}
 
-	.note-3 {
+	.notes > :global(.note-3) {
 		right: 23%;
 		bottom: 19%;
 		transform: translate(50%, 50%);
 	}
 
-	.note-4 {
+	.notes > :global(.note-4) {
 		bottom: 56%;
 		right: 12%;
 		transform: translate(50%, 50%);
 	}
 
-	.note-5 {
+	.notes > :global(.note-5) {
 		bottom: 13%;
 		left: 27%;
 		transform: translate(-50%, 50%);
 	}
 
-	.note-6 {
+	.notes > :global(.note-6) {
 		top: 12%;
 		left: 53%;
 		transform: translate(-50%, -50%);
 	}
 
-	.note-7 {
+	.notes > :global(.note-7) {
 		top: 59%;
 		left: 12%;
 		transform: translate(-50%, -50%);
@@ -242,7 +200,7 @@
 		font-size: 16px;
 	}
 
-	.note {
-		overflow-y: hidden;
+	.notes > :global(.note) {
+		position: absolute;
 	}
 </style>
