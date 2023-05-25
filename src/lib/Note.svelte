@@ -1,26 +1,47 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 	export let color = 'grey';
 	export let border = '1';
 	export let classes = '';
 	export let dim = false;
+	let data!: HTMLElrement;
+
+	let short = false;
+	let long = false;
+
+	onMount(() => {
+		let charCount = (data?.innerText || '').length;
+		short = charCount > 0 && charCount < 160;
+		long = !short;
+	})
 </script>
 
-<div class="note {color} border-{border} {classes}" class:dim>
-	<slot />
+<div class="note {color} border-{border} {classes}" class:dim
+	class:short={short} class:long={long}>
+	<span bind:this={data}><slot></slot></span>
 </div>
 
 <style>
 	div {
 		background-color: #101010;
-		margin: auto;
-		padding: 1em;
+		margin: 1rem;
+		padding: 1rem;
 		color: #fff;
-		min-width: 15em;
-		max-width: 20em;
-		max-height: 12.5em;
+		min-width: 10rem;
+		max-width: 20rem;
+		max-height: 12.5rem;
 		border: 3px solid #95a5a6;
 		border-radius: 20px;
 		overflow: scroll;
+	}
+
+	.short {
+		width: 15rem;
+	}
+	
+	.long {
+		width: 20rem;
 	}
 
 	.blue {
@@ -59,17 +80,6 @@
 		filter: brightness(0.5);
 	}
 
-	::-webkit-scrollbar {
-		-webkit-appearance: none;
-	}
 
-	::-webkit-scrollbar-thumb {
-		border-radius: 8px;
-		border: 6px solid #101010;
-		background-color: #95a5a6;
-	}
-
-	::-webkit-scrollbar-corner {
-		background-color: #0000;
-	}
+	/* TODO SCROLLBARS FIX */
 </style>

@@ -41,16 +41,6 @@
 {/if}
 
 <style>
-	.overlay {
-		width: 100vw;
-		height: 100vh;
-		background-color: #0007;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 999;
-	}
-
 	.lds-ellipsis {
 		position: absolute;
 		top: 50%;
@@ -64,7 +54,8 @@
 	}
 
 	.sidebar {
-		width: 15rem;
+		min-width: 15rem;
+		z-index: 99;
 		background-color: #131313;
 	}
 
