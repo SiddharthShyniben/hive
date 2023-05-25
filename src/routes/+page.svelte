@@ -45,8 +45,8 @@
 	</Note>
 
 	<Note border="1" classes="note note-6" dim>
-		Finish "The Fashionable Supervillain, Embodying the Dark Charm of Iconic Antagonists
-		Escapes from a Maximum-Security Doghouse Using an Unbreakable Toothpick, Triggers a Global Dance
+		Finish "The Fashionable Supervillain, Embodying the Dark Charm of Iconic Antagonists Escapes
+		from a Maximum-Security Doghouse Using an Unbreakable Toothpick, Triggers a Global Dance
 		Revolution Based on Interpretive Mop Maneuvers"
 	</Note>
 

@@ -10,15 +10,19 @@
 {#if user && avatar}
 	<div class="main">
 		<div class="sidebar">
-			<div class='header'>
-				<img src={avatar} alt="{user.name}">
-				<h2>{user.name}</h2> <!-- TODO time of day -->
+			<div class="header">
+				<img src={avatar} alt={user.name} />
+				<h2>{user.name}</h2>
+				<!-- TODO time of day -->
 				<small>69 notes</small>
 				<hr />
 				<ul>
 					{#each urls as url}
-						<li><a href='/{url}'
-							class:active={$page.route.id?.includes(url)}>{url[0].toUpperCase()}{url.slice(1)}</a></li>
+						<li>
+							<a href="/{url}" class:active={$page.route.id?.includes(url)}
+								>{url[0].toUpperCase()}{url.slice(1)}</a
+							>
+						</li>
 					{/each}
 				</ul>
 			</div>
@@ -35,7 +39,7 @@
 		</div>
 	</div>
 {/if}
-	
+
 <style>
 	.overlay {
 		width: 100vw;
@@ -104,7 +108,7 @@
 		text-decoration: none;
 		color: #fff;
 	}
-	
+
 	ul li a:not(.active) {
 		color: #898989;
 	}

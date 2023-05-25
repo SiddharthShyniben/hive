@@ -4,7 +4,7 @@
 	import { account } from '../../appwrite';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import {avatars} from '../../appwrite';
+	import { avatars } from '../../appwrite';
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
 	account
@@ -14,7 +14,7 @@
 			user = account;
 		})
 		.catch(() => {
-			if (browser) goto('/login')
+			if (browser) goto('/login');
 		});
 </script>
 
