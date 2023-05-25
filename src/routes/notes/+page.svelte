@@ -24,6 +24,14 @@
 				<img src={avatar} alt="{user.name}">
 				<h2>{user.name}</h2> <!-- TODO time of day -->
 				<small>69 notes</small>
+				<hr />
+				<ul>
+					<li><a href='/notes' class='active'>My Notes</a></li>
+					<li><a href='/tags'>Tags</a></li>
+					<li><a href='/archive'>Archive</a></li>
+					<li><a href='/trash'>Trash</a></li>
+					<li><a href='/settings'>Settings</a></li>
+				</ul>
 			</div>
 		</div>
 		<div>test ig</div>
@@ -85,5 +93,30 @@
 	.sidebar small {
 		color: #898989;
 		transform: translateY(-1000%);
+	}
+
+	hr {
+		border: 0.5px solid #222222;
+	}
+
+	ul {
+		margin: 1em 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+	ul li {
+		font-size: 1.344rem;
+		font-weight: bold;
+		margin-bottom: 0.67em;
+	}
+
+	ul li a {
+		text-decoration: none;
+		color: #fff;
+	}
+	
+	ul li a:not(.active) {
+		color: #898989;
 	}
 </style>
