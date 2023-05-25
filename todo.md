@@ -1,0 +1,1 @@
+- Auto redirect to notes if logged in.
