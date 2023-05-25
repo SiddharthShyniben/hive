@@ -11,9 +11,10 @@
 
 <style>
 	div {
+		background-color: #101010;
 		margin: auto;
 		padding: 1em;
-		color: #fffc;
+		color: #fff;
 		min-width: 15em;
 		max-width: 20em;
 		max-height: 12.5em;
@@ -22,40 +23,20 @@
 		overflow: scroll;
 	}
 	
-	.blue {
-		border-color: #3498db;
-	}
-	.red {
-		border-color: #e74c3c;
-	}
-	.green {
-		border-color: #1abc9c;
-	}
-	.purple {
-		border-color: #9b59b6;
-	}
-	.yellow {
-		border-color: #f1c40f;
-	}
-	.orange {
-		border-color: #e67e22;
-	}
+	.blue {border-color: #3498db}
+	.red {border-color: #e74c3c}
+	.green {border-color: #1abc9c}
+	.purple {border-color: #9b59b6}
+	.yellow {border-color: #f1c40f}
+	.orange {border-color: #e67e22}
 	
-	.border-1 {
-		border-top-left-radius: 0px;
-	}
-	.border-2 {
-		border-top-right-radius: 0px;
-	}
-	.border-3 {
-		border-bottom-left-radius: 0px;
-	}
-	.border-4 {
-		border-bottom-right-radius: 0px;
-	}
+	.border-1 {border-top-left-radius: 0px}
+	.border-2 {border-top-right-radius: 0px}
+	.border-3 {border-bottom-left-radius: 0px}
+	.border-4 {border-bottom-right-radius: 0px}
 
 	.dim {
-		opacity: 0.6;
+		filter: brightness(0.5);
 	}
 
 	::-webkit-scrollbar {
@@ -65,7 +46,7 @@
 	::-webkit-scrollbar-thumb {
 		border-radius: 8px;
 		border: 6px solid #101010;
-		background-color: #CCCC;
+		background-color: #95a5a6;
 	}
 
 	::-webkit-scrollbar-corner {

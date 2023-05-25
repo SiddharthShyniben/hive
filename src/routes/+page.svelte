@@ -144,7 +144,6 @@
 	}
 
 	.notes > :global(.note.central) {
-		background-color: #0000;
 		color: white;
 		font-weight: bold;
 		font-size: 20px;
@@ -152,6 +151,8 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		z-index: 999;
+		box-shadow: 0px 0px 200px 40px #101010;
 	}
 
 	.notes > :global(.note-1) {
