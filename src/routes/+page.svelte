@@ -3,24 +3,24 @@
 </script>
 
 <div class="notes">
-	<Note color="yellow" border="3" classes="central">
+	<Note color="yellow" border="3" classes="central" long>
 		Collaborate, capture, and organize your notes effortlessly with <strong class="hive"
 			>Hive</strong
 		>.<br /> <a href="/signup">Get started</a>
 	</Note>
 
-	<Note color="red" border="2" classes="note-1" dim>
+	<Note color="red" border="2" classes="note-1" dim long>
 		I love the smell of napalm in the morning. Bond. James Bond.
 	</Note>
 
-	<Note color="blue" border="4" classes="note-2" dim>
+	<Note color="blue" border="4" classes="note-2" dim long>
 		<strong>Unicorn Ideas</strong>
 		<ul>
 			<li>An app that predicts when your code will compile correctly on the first try.</li>
 		</ul>
 	</Note>
 
-	<Note color="green" border="3" classes="note-3" dim>
+	<Note color="green" border="3" classes="note-3" dim long>
 		<strong>TODO</strong>
 		<ul>
 			<li>Fix #69420. It's literally one line. <strong>DO IT</strong></li>
@@ -39,7 +39,7 @@
 		</ul>
 	</Note>
 
-	<Note color="orange" border="3" classes="note note-5" dim>
+	<Note color="orange" border="3" classes="note note-5" dim long>
 		Design a fashion brand that specializes in clothing made entirely out of recycled bubble wrap,
 		creating the trendiest, most protective outfits in town.
 	</Note>
@@ -50,7 +50,7 @@
 		Revolution Based on Interpretive Mop Maneuvers"
 	</Note>
 
-	<Note color="red" border="2" classes="note note-7" dim>
+	<Note color="red" border="2" classes="note note-7" dim long>
 		<pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">struct</span> <span
 				style="color: #f8f8f2">ListItemWrapper(Vec</span
 			><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">ListItem</span><span

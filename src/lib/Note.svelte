@@ -5,15 +5,18 @@
 	export let border = '1';
 	export let classes = '';
 	export let dim = false;
-	let data!: HTMLElrement;
+	let forceLong = false;
+	let forceShort = false;
+	export {forceLong as long, forceShort as short}
+	let data!: HTMLElement;
 
 	let short = false;
 	let long = false;
 
 	onMount(() => {
 		let charCount = (data?.innerText || '').length;
-		short = charCount > 0 && charCount < 160;
-		long = !short;
+		short = forceShort|| charCount > 0 && charCount < 160;
+		long = forceLong || !short;
 	})
 </script>
 
