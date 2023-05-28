@@ -27,7 +27,7 @@
 	<div class='main'>
 		<h1>My Notes</h1>
 		<div class='notes'>
-	<Note color="yellow" border="3" classes="central">
+	<Note color="yellow" border="3" classes="central" collaborator>
 		Collaborate, capture, and organize your notes effortlessly with <strong class="hive"
 			>Hive</strong
 		>.<br /> <a href="/signup">Get started</a>

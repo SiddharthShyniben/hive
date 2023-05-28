@@ -5,9 +5,14 @@
 	export let border = '1';
 	export let classes = '';
 	export let dim = false;
+	
 	let forceLong = false;
 	let forceShort = false;
 	export {forceLong as long, forceShort as short}
+
+	export let collaborator = false;
+	export let collaborators = ["balls", "balls2"];
+	
 	let data!: HTMLElement;
 
 	let short = false;
@@ -23,6 +28,11 @@
 <div class="note {color} border-{border} {classes}" class:dim
 	class:short={short} class:long={long}>
 	<span bind:this={data}><slot></slot></span>
+	{#if collaborator}
+		{#each collaborators as collaborator, i}
+			<img src="https://picsum.photos/100" alt={collaborator} class="colab-circle colab-{i} border-{color}">
+		{/each}
+	{/if}
 </div>
 
 <style>
@@ -83,6 +93,23 @@
 		filter: brightness(0.5);
 	}
 
+
+	.colab-circle {
+		background-color: #101010;
+		border-radius: 50%;
+		z-index: 50;
+		width: 32px;
+		height: 32px;
+
+		position: absolute;
+		transform: translate(350%, 50%);
+		border: 2px solid #101010;
+	}
+
+	.colab-1 {
+		transform: translate(300%, 50%);
+		z-index: 49;
+	}
 
 	/* TODO SCROLLBARS FIX */
 </style>
