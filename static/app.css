@@ -120,12 +120,16 @@ a:visited {
 	}
 }
 
-	.overlay {
-		width: 100vw;
-		height: 100vh;
-		background-color: #0007;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 999;
-	}
+.overlay {
+	width: 100vw;
+	height: 100vh;
+	background-color: #0007;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+}
+
+.dim {
+	color: #898989;
+}

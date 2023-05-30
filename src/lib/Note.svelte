@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import {onMount} from "svelte";
+	import {fade, scale} from 'svelte/transition';
 
 	export let color = 'grey';
 	export let border = '1';
@@ -18,17 +19,34 @@
 	let short = false;
 	let long = false;
 
+	let element!: HTMLElement;
 	onMount(() => {
 		let charCount = (data?.innerText || '').length;
 		short = forceShort|| charCount > 0 && charCount < 160;
 		long = forceLong || !short;
+		const rect = element.getBoundingClientRect();
+		const topPercent = (rect.top / window.innerHeight) * 100;
+		const leftPercent = (rect.left / window.innerWidth) * 100;
+		element.style.top = `calc(${topPercent}% - 1rem)`;
+		element.style.left = `calc(${leftPercent}% - 1rem)`;
 	})
+
+	// TODO: expandable=false for homepage
+	export let expandable = true;
+	export let expanded = false;
+	function toggleNoteEditor() {
+		if (expandable) expanded = !expanded;
+	}
+
 </script>
 
-<div class="note {color} border-{border} {classes}" class:dim
-	class:short={short} class:long={long}>
-	<span bind:this={data}><slot></slot></span>
-	{#if collaborator}
+<div bind:this={element} class="note {color} border-{border} {classes}"
+	class:dim class:short={short} class:long={long} class:expanded
+	on:click={toggleNoteEditor}>
+	{#if !expanded}
+		<span transition:fade bind:this={data}><slot></slot></span>
+	{/if}
+	{#if collaborator && !expanded}
 		{#each collaborators as collaborator, i}
 			<img src="https://picsum.photos/100" alt={collaborator} class="colab-circle colab-{i} border-{color}">
 		{/each}
@@ -36,17 +54,19 @@
 </div>
 
 <style>
-	div {
+	.note {
 		background-color: #101010;
 		margin: 1rem;
 		padding: 1rem;
 		color: #fff;
-		min-width: 10rem;
-		max-width: 20rem;
-		max-height: 12.5rem;
+		height: 12.5rem;
 		border: 3px solid #95a5a6;
 		border-radius: 20px;
 		overflow: scroll;
+
+		position: absolute;
+		z-index: 1000;
+		transition: all 500ms;
 	}
 
 	.short {
@@ -93,7 +113,6 @@
 		filter: brightness(0.5);
 	}
 
-
 	.colab-circle {
 		background-color: #101010;
 		border-radius: 50%;
@@ -109,6 +128,19 @@
 	.colab-1 {
 		transform: translate(300%, 50%);
 		z-index: 49;
+	}
+	
+	.colab-2 {
+		transform: translate(250%, 50%);
+		z-index: 49;
+	}
+
+	.expanded {
+		position: absolute;
+		width: 70%;
+		height: 70%;
+		top: 15% !important;
+		left: 15% !important;
 	}
 
 	/* TODO SCROLLBARS FIX */
