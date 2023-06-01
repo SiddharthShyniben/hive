@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {onMount} from "svelte";
 	import {fade} from 'svelte/transition';
+	import TipTap from "./TipTap.svelte";
 
 	export let color = 'grey';
 	export let border = '1';
@@ -39,7 +40,9 @@
 	export let expandable = true;
 	export let expanded = false;
 	function toggleNoteEditor() {
-		if (expandable) expanded = !expanded;
+		if (expandable) if (!expanded) {
+			expanded = true;
+		}
 	}
 </script>
 
@@ -48,6 +51,9 @@
 	on:click={toggleNoteEditor}>
 	{#if !expanded}
 		<span transition:fade bind:this={data}><slot></slot></span>
+	{/if}
+	{#if expanded}
+		<TipTap />
 	{/if}
 	{#if collaborator && !expanded}
 		{#each collaborators as collaborator, i}

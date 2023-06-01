@@ -133,3 +133,59 @@ a:visited {
 .dim {
 	color: #898989;
 }
+
+.ProseMirror abbr {
+  border-bottom: 1px dotted;
+}
+
+.ProseMirror cite {
+  font-style: italic;
+}
+
+.ProseMirror hr {
+	background: #898989;
+	border: none;
+	display: block;
+	height: 1px;
+	margin-bottom: 0.4em;
+	margin-top: 0.4em;
+}
+
+.ProseMirror {
+	outline: none;
+}
+
+.ProseMirror-gapcursor:after {
+	border-color: white;
+}
+
+.ProseMirror-dropcursor:after {
+	border-color: white;
+}
+
+.ProseMirror-selectednode {
+	background-color: #fff000;
+}
+
+blockquote {
+	border-left: 4px solid #898989;
+	padding: 0.6em 1.2em;
+	margin-left: 0;
+}
+
+blockquote p {
+	margin: 0;
+}
+
+ol, ul {
+	margin-bottom: 0.3em;
+}
+
+ol p, ul p {
+	margin: 0;
+}
+
+pre {
+	padding: 1em;
+	background: #131313;
+}
