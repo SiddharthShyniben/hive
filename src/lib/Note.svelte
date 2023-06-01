@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {onMount} from "svelte";
-	import {fade, scale} from 'svelte/transition';
+	import {fade} from 'svelte/transition';
 
 	export let color = 'grey';
 	export let border = '1';
@@ -14,16 +14,20 @@
 	export let collaborator = false;
 	export let collaborators = ["balls", "balls2"];
 	
+	let element!: HTMLElement;
 	let data!: HTMLElement;
 
-	let short = false;
 	let long = false;
+	if (forceShort) long = false;
+	else if (forceLong) long = true;
 
-	let element!: HTMLElement;
 	onMount(() => {
-		let charCount = (data?.innerText || '').length;
-		short = forceShort|| charCount > 0 && charCount < 160;
-		long = forceLong || !short;
+		if (!forceShort) {
+			let charCount = (data?.innerText || '').length;
+			long = forceLong || charCount > 160;
+			console.log('No force short', data.innerText);
+		}
+		if (!expandable) return;
 		const rect = element.getBoundingClientRect();
 		const topPercent = (rect.top / window.innerHeight) * 100;
 		const leftPercent = (rect.left / window.innerWidth) * 100;
@@ -37,11 +41,10 @@
 	function toggleNoteEditor() {
 		if (expandable) expanded = !expanded;
 	}
-
 </script>
 
 <div bind:this={element} class="note {color} border-{border} {classes}"
-	class:dim class:short={short} class:long={long} class:expanded
+	class:dim class:long class:expanded class:expandable
 	on:click={toggleNoteEditor}>
 	{#if !expanded}
 		<span transition:fade bind:this={data}><slot></slot></span>
@@ -59,22 +62,21 @@
 		margin: 1rem;
 		padding: 1rem;
 		color: #fff;
+		width: 18rem;
 		height: 12.5rem;
 		border: 3px solid #95a5a6;
 		border-radius: 20px;
 		overflow: scroll;
+	}
 
+	.note.expandable {
 		position: absolute;
 		z-index: 1000;
 		transition: all 500ms;
 	}
 
-	.short {
-		width: 15rem;
-	}
-	
 	.long {
-		width: 20rem;
+		width: 22rem;
 	}
 
 	.blue {

@@ -3,24 +3,24 @@
 </script>
 
 <div class="notes">
-	<Note color="yellow" border="3" classes="central" long>
+	<Note color="yellow" border="3" classes="central" long expandable={false}>
 		Collaborate, capture, and organize your notes effortlessly with <strong class="hive"
 			>Hive</strong
 		>.<br /> <a href="/signup">Get started</a>
 	</Note>
 
-	<Note color="red" border="2" classes="note-1" dim long>
+	<Note color="red" border="2" classes="note-1" dim long expandable={false}>
 		I love the smell of napalm in the morning. Bond. James Bond.
 	</Note>
 
-	<Note color="blue" border="4" classes="note-2" dim long>
+	<Note color="blue" border="4" classes="note-2" dim long expandable={false}>
 		<strong>Unicorn Ideas</strong>
 		<ul>
 			<li>An app that predicts when your code will compile correctly on the first try.</li>
 		</ul>
 	</Note>
 
-	<Note color="green" border="3" classes="note-3" dim long>
+	<Note color="green" border="3" classes="note-3" dim long expandable={false}>
 		<strong>TODO</strong>
 		<ul>
 			<li>Fix #69420. It's literally one line. <strong>DO IT</strong></li>
@@ -29,7 +29,7 @@
 		</ul>
 	</Note>
 
-	<Note color="purple" border="1" classes="note-4" dim>
+	<Note color="purple" border="1" classes="note-4" dim short expandable={false}>
 		<strong>I woke up at 3am</strong>
 		<ul>
 			<li>
@@ -39,18 +39,18 @@
 		</ul>
 	</Note>
 
-	<Note color="orange" border="3" classes="note note-5" dim long>
+	<Note color="orange" border="3" classes="note note-5" dim long expandable={false}>
 		Design a fashion brand that specializes in clothing made entirely out of recycled bubble wrap,
 		creating the trendiest, most protective outfits in town.
 	</Note>
 
-	<Note border="1" classes="note note-6" dim>
+	<Note border="1" classes="note note-6" dim short expandable={false}>
 		Finish "The Fashionable Supervillain, Embodying the Dark Charm of Iconic Antagonists Escapes
 		from a Maximum-Security Doghouse Using an Unbreakable Toothpick, Triggers a Global Dance
 		Revolution Based on Interpretive Mop Maneuvers"
 	</Note>
 
-	<Note color="red" border="2" classes="note note-7" dim long>
+	<Note color="red" border="2" classes="note note-7" dim long expandable={false}>
 		<pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">struct</span> <span
 				style="color: #f8f8f2">ListItemWrapper(Vec</span
 			><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">ListItem</span><span
