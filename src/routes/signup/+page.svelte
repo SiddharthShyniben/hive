@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { createUser, isValid } from '../../appwrite';
+	import { createUser, isValid, loggedIn } from '../../appwrite';
 	import { goto } from '$app/navigation';
-	let processing = false;
+	let processing = true;
 	let username = '';
 	let email = '';
 	let password = '';
+	
+	if (await loggedIn()) {
+		goto('/notes')
+	}
+
+	processing = false;
 
 	function submit(): void {
 		processing = true;
