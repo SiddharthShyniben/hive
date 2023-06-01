@@ -50,7 +50,7 @@
 	class:dim class:long class:expanded class:expandable
 	on:click={toggleNoteEditor}>
 	{#if !expanded}
-		<span transition:fade bind:this={data}><slot></slot></span>
+		<span bind:this={data}><slot></slot></span>
 	{/if}
 	{#if expanded}
 		<TipTap />
