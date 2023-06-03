@@ -17,44 +17,56 @@
 	let element!: HTMLElement;
 	let data!: HTMLElement;
 
-	let long = false;
-	if (forceShort) long = false;
-	else if (forceLong) long = true;
+	let long = forceShort ? false : forceLong ? true : false;
 
 	onMount(() => {
 		if (!forceShort) {
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
-			console.log('No force short', data.innerText);
 		}
-		if (!expandable) return;
+	});
+
+	export let expandable = true;
+	export let expanded = false;
+	function toggleNoteEditor() {	
+		handlePositioning();
+		if (expandable) {
+			if (!expanded) expanded = true;
+		}
+	}
+	
+	function handlePositioning() {
 		const rect = element.getBoundingClientRect();
 		const topPercent = (rect.top / window.innerHeight) * 100;
 		const leftPercent = (rect.left / window.innerWidth) * 100;
 		element.style.top = `calc(${topPercent}% - 1rem)`;
 		element.style.left = `calc(${leftPercent}% - 1rem)`;
-	});
+	}
 
-	// TODO: expandable=false for homepage
-	export let expandable = true;
-	export let expanded = false;
-	function toggleNoteEditor() {
-		if (expandable)
-			if (!expanded) {
-				expanded = true;
-			}
+	function handleKey(e: KeyboardEvent) {
+		// TODO
+		if (expanded) {
+			if (e.key === 'Escape') expanded = false
+		} else if (e.key === 'Enter') expanded = true
+	}
+
+	function closeNote(e: KeyboardEvent) {
+		if (expanded) {
+			if (e.key === 'Escape') expanded = false
+		}
 	}
 </script>
 
+<svelte:window on:keydown={closeNote} on:resize={handlePositioning}/>
+
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
 	class="note {color} border-{border} {classes}"
-	class:dim
-	class:long
-	class:expanded
-	class:expandable
+	class:dim class:long class:expanded class:expandable
 	on:click={toggleNoteEditor}
->
+	on:keydown={handleKey}
+	tabindex="0">
 	{#if !expanded}
 		<span bind:this={data}><slot /></span>
 	{/if}
