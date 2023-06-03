@@ -5,14 +5,19 @@
 	import StarterKit from '@tiptap/starter-kit';
 
 	let editor: Readable<Editor>;
+	export let value = '';
 
 	onMount(() => {
 		editor = createEditor({
 			extensions: [StarterKit],
-			content: `Hello world!`,
-			autofocus: true
+			content: value || `Run free.`,
+			autofocus: true,
+			onUpdate({editor}) {
+				value = editor.getHTML()
+			}
 		});
 	});
+
 </script>
 
 {#if editor}

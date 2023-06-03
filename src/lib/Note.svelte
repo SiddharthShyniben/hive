@@ -24,6 +24,7 @@
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
 		}
+		window.addEventListener('resize', handlePositioning);
 	});
 
 	export let expandable = true;
@@ -36,6 +37,7 @@
 	}
 	
 	function handlePositioning() {
+		console.log('Resize')
 		const rect = element.getBoundingClientRect();
 		const topPercent = (rect.top / window.innerHeight) * 100;
 		const leftPercent = (rect.left / window.innerWidth) * 100;
@@ -44,7 +46,6 @@
 	}
 
 	function handleKey(e: KeyboardEvent) {
-		// TODO
 		if (expanded) {
 			if (e.key === 'Escape') expanded = false
 		} else if (e.key === 'Enter') expanded = true
@@ -55,23 +56,25 @@
 			if (e.key === 'Escape') expanded = false
 		}
 	}
+
+	export let value = 'Run free';
 </script>
 
-<svelte:window on:keydown={closeNote} on:resize={handlePositioning}/>
+<svelte:window on:keydown={closeNote}/>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
-	class="note {color} border-{border} {classes}"
+	class="note static {color} border-{border} {classes}"
 	class:dim class:long class:expanded class:expandable
 	on:click={toggleNoteEditor}
 	on:keydown={handleKey}
 	tabindex="0">
 	{#if !expanded}
-		<span bind:this={data}><slot /></span>
+		<span bind:this={data}>{@html value}</span>
 	{/if}
 	{#if expanded}
-		<TipTap />
+		<TipTap bind:value />
 	{/if}
 	{#if collaborator && !expanded}
 		{#each collaborators as collaborator, i}
@@ -173,5 +176,16 @@
 		left: 15% !important;
 	}
 
-	/* TODO SCROLLBARS FIX */
+	.note:not(.expanded) {
+		width: 18rem;
+		height: 12.5rem;
+		animation: static 1.75s forwards;
+	}
+
+	@keyframes static {
+		to {
+			position: static;
+			transition: none;
+		}
+	}
 </style>

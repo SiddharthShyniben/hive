@@ -167,6 +167,10 @@ a:visited {
 	background-color: #fff000;
 }
 
+p {
+	margin-top: 0;
+}
+
 blockquote {
 	border-left: 4px solid #898989;
 	padding: 0.6em 1.2em;
