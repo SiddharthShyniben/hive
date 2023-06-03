@@ -8,7 +8,12 @@ export default client;
 export { account, avatars };
 
 export async function loggedIn() {
-	return !!(await account.get());
+	try {
+		return !!(await account.get());
+	} catch (e) {
+		console.error(e);
+		return false;
+	}
 }
 
 export function createUser(username: string, email: string, password: string) {

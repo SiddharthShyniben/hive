@@ -11,6 +11,7 @@
 			<div />
 		</div>
 	</div>
+{:else}
 	<slot />
 {/if}
 
