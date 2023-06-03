@@ -6,11 +6,12 @@
 	let email = '';
 	let password = '';
 	
-	if (await loggedIn()) {
-		goto('/notes')
-	}
-
-	processing = false;
+	loggedIn().then(yes => {
+		if (yes) {
+			goto('/notes')
+		}
+		processing = false;
+	})
 
 	function submit(): void {
 		processing = true;

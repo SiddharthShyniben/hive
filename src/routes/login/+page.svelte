@@ -5,9 +5,12 @@
 	let password = '';
 	let processing = true;
 
-	if (await loggedIn()) {
-		goto('/notes')
-	}
+	loggedIn().then(yes => {
+		if (yes) {
+			goto('/notes')
+		}
+		processing = false;
+	})
 
 	processing = false
 
