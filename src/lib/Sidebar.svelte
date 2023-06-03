@@ -19,7 +19,7 @@
 				<!-- TODO time of day -->
 				<small>{noteCount}</small>
 				{#if spinning}
-					<small><br>Saving...</small>
+					<small><br />Saving...</small>
 				{/if}
 				<hr />
 				<ul>

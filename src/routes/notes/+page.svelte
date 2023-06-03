@@ -12,7 +12,7 @@
 	let noteCount = 'Loading...';
 	let beforeunload: (() => boolean) | null = () => true;
 
-	$: beforeunload = saving ? () => true : null
+	$: beforeunload = saving ? () => true : null;
 
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
@@ -46,23 +46,27 @@
 		return async function (event: CustomEvent<{ value: string }>) {
 			saving = true;
 			await updateNote(id, event.detail.value);
-			notes = sortNotes(notes.map((note) => 
-				note.$id === id
-					? { ...note, note: event.detail.value, $updatedAt: new Date().toISOString() }
-					: note
-			));
-			saving = false
+			notes = sortNotes(
+				notes.map((note) =>
+					note.$id === id
+						? { ...note, note: event.detail.value, $updatedAt: new Date().toISOString() }
+						: note
+				)
+			);
+			saving = false;
 		};
 	}
 
 	function sortNotes(notes: Models.Document[]) {
-		return notes.sort((a, b) =>
-			new Date(b.$updatedAt || b.$createdAt).getTime() - new Date(a.$updatedAt || a.$createdAt).getTime()
-		)
+		return notes.sort(
+			(a, b) =>
+				new Date(b.$updatedAt || b.$createdAt).getTime() -
+				new Date(a.$updatedAt || a.$createdAt).getTime()
+		);
 	}
 </script>
 
-<svelte:window on:beforeunload={beforeunload}></svelte:window>
+<svelte:window on:beforeunload={beforeunload} />
 
 <Spinner {spinning}>
 	<Sidebar {user} {avatar} {noteCount} spinning={saving}>
