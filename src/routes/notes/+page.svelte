@@ -13,36 +13,35 @@
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
 	let notes: Models.Document[] = [];
-	
-	tryGetUser()
-		.then(async (account) => {
-			if (!account) {
-				if (browser) goto('/login');
-				return;
-			}
-			avatar = avatars.getInitials().toString();
-			user = account;
-			spinning = false;
-			getNotes().then((n: Models.DocumentList<Models.Document>) => {
-				notes = n.documents;
-				noteCount = `${n.total} notes`;
-				console.log(notes);
-			})
-		})
+
+	tryGetUser().then(async (account) => {
+		if (!account) {
+			if (browser) goto('/login');
+			return;
+		}
+		avatar = avatars.getInitials().toString();
+		user = account;
+		spinning = false;
+		getNotes().then((n: Models.DocumentList<Models.Document>) => {
+			notes = n.documents;
+			noteCount = `${n.total} notes`;
+			console.log(notes);
+		});
+	});
 	export let value = 'New note...';
 
-	async function newNote(event: CustomEvent<{value: string}>) {
+	async function newNote(event: CustomEvent<{ value: string }>) {
 		value = 'New note...';
 		const note = await createNote(event.detail.value);
-		notes = [note, ...notes]
+		notes = [note, ...notes];
 		noteCount = `${notes.length} notes`;
 	}
 
 	function saveNote(id: string) {
-		return async function(event: CustomEvent<{value: string}>) {
-			notes = notes.map(note => note.$id === id ? {...note, note: event.detail.value} : note)
-			updateNote(id, event.detail.value)
-		}
+		return async function (event: CustomEvent<{ value: string }>) {
+			notes = notes.map((note) => (note.$id === id ? { ...note, note: event.detail.value } : note));
+			updateNote(id, event.detail.value);
+		};
 	}
 </script>
 
@@ -51,10 +50,10 @@
 		<div class="main">
 			<h1>My Notes</h1>
 			<div class="notes">
-				<Note bind:value color="yellow" border="3" on:closed={newNote}></Note>
+				<Note bind:value color="yellow" border="3" on:closed={newNote} />
 			</div>
 			{#each notes as note}
-				<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)}/>
+				<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)} />
 			{/each}
 		</div>
 	</Sidebar>

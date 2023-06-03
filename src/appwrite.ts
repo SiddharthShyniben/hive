@@ -19,7 +19,7 @@ export async function tryGetUser() {
 	try {
 		if (await loggedIn()) return account.get();
 	} catch (e) {
-		console.error('Failed to get user', e)
+		console.error('Failed to get user', e);
 	}
 }
 
@@ -53,12 +53,10 @@ export async function createNote(note: string) {
 }
 
 export function updateNote(id: string, note: string) {
-	return database.updateDocument('notes', '646f231152e0b50ec88c', id, {note});
+	return database.updateDocument('notes', '646f231152e0b50ec88c', id, { note });
 }
 
 export async function getNotes() {
 	const user = await account.get();
-	return database.listDocuments('notes', '646f231152e0b50ec88c', [
-		Query.equal("user", user.email)
-	])
+	return database.listDocuments('notes', '646f231152e0b50ec88c', [Query.equal('user', user.email)]);
 }

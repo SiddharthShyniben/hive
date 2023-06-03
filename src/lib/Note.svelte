@@ -32,7 +32,7 @@
 	function toggleNoteEditor() {
 		handlePositioning();
 		if (expandable) {
-			if (!expanded) open()
+			if (!expanded) open();
 		}
 	}
 
@@ -47,8 +47,8 @@
 
 	function handleKey(e: KeyboardEvent) {
 		if (expanded) {
-			if (e.key === 'Escape') close()
-		} else if (e.key === 'Enter') open()
+			if (e.key === 'Escape') close();
+		} else if (e.key === 'Enter') open();
 	}
 
 	function closeNote(e: KeyboardEvent) {
@@ -57,7 +57,7 @@
 		}
 	}
 
-	type AnyFunction = (...args: unknown[]) => unknown
+	type AnyFunction = (...args: unknown[]) => unknown;
 
 	function clickOutside(element: HTMLDivElement, callbackFunction: AnyFunction) {
 		function onClick(event: MouseEvent) {
@@ -77,15 +77,15 @@
 			}
 		};
 	}
-	
+
 	const dispatch = createEventDispatcher();
 	export let value = '';
 
-	const open = () => expanded = true;
+	const open = () => (expanded = true);
 	const close = () => {
 		expanded = false;
-		dispatch('closed', {value})
-	}
+		dispatch('closed', { value });
+	};
 </script>
 
 <svelte:window on:keydown={closeNote} />
