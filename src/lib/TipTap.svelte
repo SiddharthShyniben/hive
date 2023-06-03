@@ -14,6 +14,7 @@
 			autofocus: true,
 			onUpdate({ editor }) {
 				value = editor.getHTML();
+				console.log(editor.options)
 			}
 		});
 	});

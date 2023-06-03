@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import TipTap from './TipTap.svelte';
 
 	export let color = 'grey';
@@ -32,7 +32,7 @@
 	function toggleNoteEditor() {
 		handlePositioning();
 		if (expandable) {
-			if (!expanded) expanded = true;
+			if (!expanded) open()
 		}
 	}
 
@@ -47,13 +47,14 @@
 
 	function handleKey(e: KeyboardEvent) {
 		if (expanded) {
-			if (e.key === 'Escape') expanded = false;
-		} else if (e.key === 'Enter') expanded = true;
+			if (e.key === 'Escape') close()
+		} else if (e.key === 'Enter') open()
 	}
 
 	function closeNote(e: KeyboardEvent) {
 		if (expanded) {
-			if (e.key === 'Escape') expanded = false;
+			console.log(e.key === 'Escape')
+			if (e.key === 'Escape') close();
 		}
 	}
 
@@ -77,8 +78,15 @@
 			}
 		};
 	}
+	
+	const dispatch = createEventDispatcher();
+	export let value = '';
 
-	export let value = 'Run free';
+	const open = () => expanded = true;
+	const close = () => {
+		expanded = false;
+		dispatch('closed', {value})
+	}
 </script>
 
 <svelte:window on:keydown={closeNote} />
@@ -98,7 +106,7 @@
 >
 	{#if !expanded}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		<span bind:this={data}>{@html value}</span>
+		<span bind:this={data}><slot />{@html value}</span>
 	{/if}
 	{#if expanded}
 		<TipTap bind:value />

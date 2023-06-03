@@ -1,4 +1,4 @@
-import { Account, Avatars, Client, Databases, ID } from 'appwrite';
+import { Account, Avatars, Client, Databases, ID, Query } from 'appwrite';
 
 const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('hive');
 const account = new Account(client);
@@ -11,8 +11,15 @@ export async function loggedIn() {
 	try {
 		return !!(await account.get());
 	} catch (e) {
-		console.error(e);
 		return false;
+	}
+}
+
+export async function tryGetUser() {
+	try {
+		if (await loggedIn()) return account.get();
+	} catch (e) {
+		console.error('Failed to get user', e)
 	}
 }
 
@@ -39,8 +46,19 @@ export function isValid(username: string, email: string, password: string): bool
 
 export async function createNote(note: string) {
 	const user = await account.get();
-	database.createDocument('notes', '646f231152e0b50ec88c', ID.unique(), {
+	return database.createDocument('notes', '646f231152e0b50ec88c', ID.unique(), {
 		note,
 		user: user.email
 	});
+}
+
+export function updateNote(id: string, note: string) {
+	return database.updateDocument('notes', '646f231152e0b50ec88c', id, {note});
+}
+
+export async function getNotes() {
+	const user = await account.get();
+	return database.listDocuments('notes', '646f231152e0b50ec88c', [
+		Query.equal("user", user.email)
+	])
 }

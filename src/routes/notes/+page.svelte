@@ -2,44 +2,61 @@
 	import Sidebar from '$lib/Sidebar.svelte';
 	import Note from '$lib/Note.svelte';
 	import type { Models } from 'appwrite';
-	import { account, avatars } from '../../appwrite';
+	import { tryGetUser, avatars, createNote, getNotes, updateNote } from '../../appwrite';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import Spinner from '$lib/Spinner.svelte';
 
 	let spinning = true;
+	let noteCount = 'Loading...';
 
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
-	account
-		.get()
+	let notes: Models.Document[] = [];
+	
+	tryGetUser()
 		.then(async (account) => {
+			if (!account) {
+				if (browser) goto('/login');
+				return;
+			}
 			avatar = avatars.getInitials().toString();
 			user = account;
-			console.log(user, avatar);
 			spinning = false;
+			getNotes().then((n: Models.DocumentList<Models.Document>) => {
+				notes = n.documents;
+				noteCount = `${n.total} notes`;
+				console.log(notes);
+			})
 		})
-		.catch(() => {
-			if (browser) goto('/login');
-		});
+	export let value = 'New note...';
 
-	// function make() {
-	// 	const text = 'Hello, world!';
-	// 	createNote(text)
-	// 		.then(() => alert('done!'))
-	// 		.catch(console.error);
-	// }
+	async function newNote(event: CustomEvent<{value: string}>) {
+		value = 'New note...';
+		const note = await createNote(event.detail.value);
+		notes = [note, ...notes]
+	}
+
+	function saveNote(id: string) {
+		return async function(event: CustomEvent<{value: string}>) {
+			notes = notes.map(note => note.$id === id ? {...note, note: event.detail.value} : note)
+			updateNote(id, event.detail.value)
+		}
+	}
 </script>
 
 <Spinner {spinning}>
-	<Sidebar {user} {avatar}>
+	<Sidebar {user} {avatar} {noteCount}>
 		<div class="main">
 			<h1>My Notes</h1>
 			<div class="notes">
-				<Note color="yellow" border="3" classes="central">
-					<span class="dim">New note...</span>
-				</Note>
+				<Note bind:value color="yellow" border="3" on:closed={newNote}></Note>
 			</div>
+			{#key notes}
+				{#each notes as note}
+					<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)}/>
+				{/each}
+			{/key}
 		</div>
 	</Sidebar>
 </Spinner>

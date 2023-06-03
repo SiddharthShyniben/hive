@@ -4,6 +4,7 @@
 	import Spinner from './Spinner.svelte';
 	export let user: Models.User<Models.Preferences> | undefined;
 	export let avatar = '';
+	export let noteCount = 'Loading...';
 
 	const urls = ['notes', 'tags', 'archive', 'trash', 'settings'];
 </script>
@@ -15,7 +16,7 @@
 				<img src={avatar} alt={user.name} />
 				<h2>{user.name}</h2>
 				<!-- TODO time of day -->
-				<small>69 notes</small>
+				<small>{noteCount}</small>
 				<hr />
 				<ul>
 					{#each urls as url}
