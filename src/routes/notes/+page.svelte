@@ -8,11 +8,16 @@
 	import Spinner from '$lib/Spinner.svelte';
 
 	let spinning = true;
+	let saving = false;
 	let noteCount = 'Loading...';
+	let beforeunload: (() => boolean) | null = () => true;
+
+	$: beforeunload = saving ? () => true : null
 
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
 	let notes: Models.Document[] = [];
+	export let value = 'New note...';
 
 	tryGetUser().then(async (account) => {
 		if (!account) {
@@ -21,32 +26,46 @@
 		}
 		avatar = avatars.getInitials().toString();
 		user = account;
-		spinning = false;
 		getNotes().then((n: Models.DocumentList<Models.Document>) => {
-			notes = n.documents;
+			notes = sortNotes(n.documents);
 			noteCount = `${n.total} notes`;
-			console.log(notes);
+			spinning = false;
 		});
 	});
-	export let value = 'New note...';
 
 	async function newNote(event: CustomEvent<{ value: string }>) {
+		saving = true;
 		value = 'New note...';
 		const note = await createNote(event.detail.value);
+		saving = false;
 		notes = [note, ...notes];
 		noteCount = `${notes.length} notes`;
 	}
 
 	function saveNote(id: string) {
 		return async function (event: CustomEvent<{ value: string }>) {
-			notes = notes.map((note) => (note.$id === id ? { ...note, note: event.detail.value } : note));
-			updateNote(id, event.detail.value);
+			saving = true;
+			await updateNote(id, event.detail.value);
+			notes = sortNotes(notes.map((note) => 
+				note.$id === id
+					? { ...note, note: event.detail.value, $updatedAt: new Date().toISOString() }
+					: note
+			));
+			saving = false
 		};
+	}
+
+	function sortNotes(notes: Models.Document[]) {
+		return notes.sort((a, b) =>
+			new Date(b.$updatedAt || b.$createdAt).getTime() - new Date(a.$updatedAt || a.$createdAt).getTime()
+		)
 	}
 </script>
 
+<svelte:window on:beforeunload={beforeunload}></svelte:window>
+
 <Spinner {spinning}>
-	<Sidebar {user} {avatar} {noteCount}>
+	<Sidebar {user} {avatar} {noteCount} spinning={saving}>
 		<div class="main">
 			<h1>My Notes</h1>
 			<div class="notes">

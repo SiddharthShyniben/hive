@@ -5,6 +5,7 @@
 	export let user: Models.User<Models.Preferences> | undefined;
 	export let avatar = '';
 	export let noteCount = 'Loading...';
+	export let spinning = false;
 
 	const urls = ['notes', 'tags', 'archive', 'trash', 'settings'];
 </script>
@@ -17,13 +18,16 @@
 				<h2>{user.name}</h2>
 				<!-- TODO time of day -->
 				<small>{noteCount}</small>
+				{#if spinning}
+					<small><br>Saving...</small>
+				{/if}
 				<hr />
 				<ul>
 					{#each urls as url}
 						<li>
-							<a href="/{url}" class:active={$page.route.id?.includes(url)}
-								>{url[0].toUpperCase()}{url.slice(1)}</a
-							>
+							<a href="/{url}" class:active={$page.route.id?.includes(url)}>
+								{url[0].toUpperCase()}{url.slice(1)}
+							</a>
 						</li>
 					{/each}
 				</ul>
