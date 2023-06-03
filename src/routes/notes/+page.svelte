@@ -8,15 +8,15 @@
 	import Spinner from '$lib/Spinner.svelte';
 
 	let spinning = true;
-	
+
 	let user: Models.User<Models.Preferences> | undefined;
 	let avatar = '';
 	account
 		.get()
 		.then(async (account) => {
-			avatar = avatars.getInitials();
+			avatar = avatars.getInitials().toString();
 			user = account;
-			console.log(user, avatar)
+			console.log(user, avatar);
 			spinning = false;
 		})
 		.catch(() => {

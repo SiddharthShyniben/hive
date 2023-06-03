@@ -12,12 +12,11 @@
 			extensions: [StarterKit],
 			content: value || `Run free.`,
 			autofocus: true,
-			onUpdate({editor}) {
-				value = editor.getHTML()
+			onUpdate({ editor }) {
+				value = editor.getHTML();
 			}
 		});
 	});
-
 </script>
 
 {#if editor}

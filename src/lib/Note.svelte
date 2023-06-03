@@ -29,15 +29,15 @@
 
 	export let expandable = true;
 	export let expanded = false;
-	function toggleNoteEditor() {	
+	function toggleNoteEditor() {
 		handlePositioning();
 		if (expandable) {
 			if (!expanded) expanded = true;
 		}
 	}
-	
+
 	function handlePositioning() {
-		console.log('Resize')
+		console.log('Resize');
 		const rect = element.getBoundingClientRect();
 		const topPercent = (rect.top / window.innerHeight) * 100;
 		const leftPercent = (rect.left / window.innerWidth) * 100;
@@ -47,19 +47,21 @@
 
 	function handleKey(e: KeyboardEvent) {
 		if (expanded) {
-			if (e.key === 'Escape') expanded = false
-		} else if (e.key === 'Enter') expanded = true
+			if (e.key === 'Escape') expanded = false;
+		} else if (e.key === 'Enter') expanded = true;
 	}
 
 	function closeNote(e: KeyboardEvent) {
 		if (expanded) {
-			if (e.key === 'Escape') expanded = false
+			if (e.key === 'Escape') expanded = false;
 		}
 	}
 
-	function clickOutside(element, callbackFunction) {
-		function onClick(event) {
-			if (!element.contains(event.target)) {
+	type AnyFunction = (...args: unknown[]) => unknown
+
+	function clickOutside(element: HTMLDivElement, callbackFunction: AnyFunction) {
+		function onClick(event: MouseEvent) {
+			if (!element.contains(event.target as Node)) {
 				callbackFunction();
 			}
 		}
@@ -67,30 +69,35 @@
 		document.body.addEventListener('click', onClick);
 
 		return {
-			update(newCallbackFunction) {
+			update(newCallbackFunction: AnyFunction) {
 				callbackFunction = newCallbackFunction;
 			},
 			destroy() {
 				document.body.removeEventListener('click', onClick);
 			}
-		}
+		};
 	}
 
 	export let value = 'Run free';
 </script>
 
-<svelte:window on:keydown={closeNote}/>
+<svelte:window on:keydown={closeNote} />
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
 	class="note static {color} border-{border} {classes}"
-	class:dim class:long class:expanded class:expandable
+	class:dim
+	class:long
+	class:expanded
+	class:expandable
 	on:click={toggleNoteEditor}
 	on:keydown={handleKey}
-	use:clickOutside={() => expanded = false}
-	tabindex="0">
+	use:clickOutside={() => (expanded = false)}
+	tabindex="0"
+>
 	{#if !expanded}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		<span bind:this={data}>{@html value}</span>
 	{/if}
 	{#if expanded}
@@ -119,7 +126,7 @@
 		border-radius: 20px;
 		overflow: scroll;
 	}
-	
+
 	.note.expandable {
 		position: absolute;
 		z-index: 1000;
@@ -203,9 +210,9 @@
 	}
 
 	@keyframes static {
-	to {
-		position: static;
-		transition: none;
-	}
+		to {
+			position: static;
+			transition: none;
+		}
 	}
 </style>
