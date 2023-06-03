@@ -35,6 +35,7 @@
 		value = 'New note...';
 		const note = await createNote(event.detail.value);
 		notes = [note, ...notes]
+		noteCount = `${notes.length} notes`;
 	}
 
 	function saveNote(id: string) {
@@ -52,11 +53,9 @@
 			<div class="notes">
 				<Note bind:value color="yellow" border="3" on:closed={newNote}></Note>
 			</div>
-			{#key notes}
-				{#each notes as note}
-					<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)}/>
-				{/each}
-			{/key}
+			{#each notes as note}
+				<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)}/>
+			{/each}
 		</div>
 	</Sidebar>
 </Spinner>

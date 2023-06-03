@@ -10,11 +10,10 @@
 	onMount(() => {
 		editor = createEditor({
 			extensions: [StarterKit],
-			content: value || `Run free.`,
+			content: value || `Write...`,
 			autofocus: true,
 			onUpdate({ editor }) {
 				value = editor.getHTML();
-				console.log(editor.options)
 			}
 		});
 	});

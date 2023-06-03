@@ -53,7 +53,6 @@
 
 	function closeNote(e: KeyboardEvent) {
 		if (expanded) {
-			console.log(e.key === 'Escape')
 			if (e.key === 'Escape') close();
 		}
 	}
@@ -107,8 +106,7 @@
 	{#if !expanded}
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		<span bind:this={data}><slot />{@html value}</span>
-	{/if}
-	{#if expanded}
+	{:else}
 		<TipTap bind:value />
 	{/if}
 	{#if collaborator && !expanded}
