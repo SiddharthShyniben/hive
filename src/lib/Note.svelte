@@ -57,6 +57,25 @@
 		}
 	}
 
+	function clickOutside(element, callbackFunction) {
+		function onClick(event) {
+			if (!element.contains(event.target)) {
+				callbackFunction();
+			}
+		}
+
+		document.body.addEventListener('click', onClick);
+
+		return {
+			update(newCallbackFunction) {
+				callbackFunction = newCallbackFunction;
+			},
+			destroy() {
+				document.body.removeEventListener('click', onClick);
+			}
+		}
+	}
+
 	export let value = 'Run free';
 </script>
 
@@ -69,6 +88,7 @@
 	class:dim class:long class:expanded class:expandable
 	on:click={toggleNoteEditor}
 	on:keydown={handleKey}
+	use:clickOutside={() => expanded = false}
 	tabindex="0">
 	{#if !expanded}
 		<span bind:this={data}>{@html value}</span>
@@ -99,7 +119,7 @@
 		border-radius: 20px;
 		overflow: scroll;
 	}
-
+	
 	.note.expandable {
 		position: absolute;
 		z-index: 1000;
@@ -183,9 +203,9 @@
 	}
 
 	@keyframes static {
-		to {
-			position: static;
-			transition: none;
-		}
+	to {
+		position: static;
+		transition: none;
+	}
 	}
 </style>
