@@ -1,20 +1,19 @@
 <script lang="ts">
-	import {onMount} from "svelte";
-	import {fade} from 'svelte/transition';
-	import TipTap from "./TipTap.svelte";
+	import { onMount } from 'svelte';
+	import TipTap from './TipTap.svelte';
 
 	export let color = 'grey';
 	export let border = '1';
 	export let classes = '';
 	export let dim = false;
-	
+
 	let forceLong = false;
 	let forceShort = false;
-	export {forceLong as long, forceShort as short}
+	export { forceLong as long, forceShort as short };
 
 	export let collaborator = false;
-	export let collaborators = ["balls", "balls2"];
-	
+	export let collaborators = ['balls', 'balls2'];
+
 	let element!: HTMLElement;
 	let data!: HTMLElement;
 
@@ -34,30 +33,41 @@
 		const leftPercent = (rect.left / window.innerWidth) * 100;
 		element.style.top = `calc(${topPercent}% - 1rem)`;
 		element.style.left = `calc(${leftPercent}% - 1rem)`;
-	})
+	});
 
 	// TODO: expandable=false for homepage
 	export let expandable = true;
 	export let expanded = false;
 	function toggleNoteEditor() {
-		if (expandable) if (!expanded) {
-			expanded = true;
-		}
+		if (expandable)
+			if (!expanded) {
+				expanded = true;
+			}
 	}
 </script>
 
-<div bind:this={element} class="note {color} border-{border} {classes}"
-	class:dim class:long class:expanded class:expandable
-	on:click={toggleNoteEditor}>
+<div
+	bind:this={element}
+	class="note {color} border-{border} {classes}"
+	class:dim
+	class:long
+	class:expanded
+	class:expandable
+	on:click={toggleNoteEditor}
+>
 	{#if !expanded}
-		<span bind:this={data}><slot></slot></span>
+		<span bind:this={data}><slot /></span>
 	{/if}
 	{#if expanded}
 		<TipTap />
 	{/if}
 	{#if collaborator && !expanded}
 		{#each collaborators as collaborator, i}
-			<img src="https://picsum.photos/100" alt={collaborator} class="colab-circle colab-{i} border-{color}">
+			<img
+				src="https://picsum.photos/100"
+				alt={collaborator}
+				class="colab-circle colab-{i} border-{color}"
+			/>
 		{/each}
 	{/if}
 </div>
@@ -137,7 +147,7 @@
 		transform: translate(300%, 50%);
 		z-index: 49;
 	}
-	
+
 	.colab-2 {
 		transform: translate(250%, 50%);
 		z-index: 49;

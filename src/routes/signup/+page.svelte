@@ -1,20 +1,21 @@
 <script lang="ts">
 	import { createUser, isValid, loggedIn } from '../../appwrite';
 	import { goto } from '$app/navigation';
-	let processing = true;
+	import Spinner from '$lib/Spinner.svelte';
+	let spinning = true;
 	let username = '';
 	let email = '';
 	let password = '';
-	
-	loggedIn().then(yes => {
+
+	loggedIn().then((yes) => {
 		if (yes) {
-			goto('/notes')
+			goto('/notes');
 		}
-		processing = false;
-	})
+		spinning = false;
+	});
 
 	function submit(): void {
-		processing = true;
+		spinning = true;
 		console.log(username, email, password);
 		createUser(username, email, password)
 			?.then(() => {
@@ -23,7 +24,7 @@
 				goto('/notes');
 			})
 			.catch((e) => {
-				processing = false;
+				spinning = false;
 				alert(e.message);
 				username = '';
 				email = '';
@@ -32,26 +33,18 @@
 	}
 </script>
 
-{#if processing}
-	<div class="overlay">
-		<div class="lds-ellipsis">
-			<div />
-			<div />
-			<div />
-			<div />
-		</div>
+<Spinner {spinning}>
+	<div id="main">
+		<h1>Get started with Hive!</h1>
+		<input type="text" placeholder="Username" bind:value={username} required /><br />
+		<input type="email" placeholder="Email" bind:value={email} required /><br />
+		<input type="password" placeholder="Password" bind:value={password} required /><br />
+		<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}
+			>Sign up</button
+		><br />
+		<small>Already have an account? <a href="/login">Log In</a></small>
 	</div>
-{/if}
-<div id="main">
-	<h1>Get started with Hive!</h1>
-	<input type="text" placeholder="Username" bind:value={username} required /><br />
-	<input type="email" placeholder="Email" bind:value={email} required /><br />
-	<input type="password" placeholder="Password" bind:value={password} required /><br />
-	<button type="submit" on:click={submit} disabled={!isValid(username, email, password)}
-		>Sign up</button
-	><br />
-	<small>Already have an account? <a href="/login">Log In</a></small>
-</div>
+</Spinner>
 
 <style>
 	#main {
@@ -76,24 +69,6 @@
 	button {
 		margin-bottom: 1.34rem;
 	}
-
-	.overlay {
-		width: 100vw;
-		height: 100vh;
-		background-color: #0007;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 999;
-	}
-
-	.lds-ellipsis {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-
 	small {
 		margin: 2rem;
 	}

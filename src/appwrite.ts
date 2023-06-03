@@ -34,13 +34,8 @@ export function isValid(username: string, email: string, password: string): bool
 
 export async function createNote(note: string) {
 	const user = await account.get();
-	database.createDocument(
-		'notes',
-		'646f231152e0b50ec88c',
-		ID.unique(),
-		{
-			note,
-			user: user.email
-		}
-	)
+	database.createDocument('notes', '646f231152e0b50ec88c', ID.unique(), {
+		note,
+		user: user.email
+	});
 }

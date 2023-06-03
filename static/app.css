@@ -135,11 +135,11 @@ a:visited {
 }
 
 .ProseMirror abbr {
-  border-bottom: 1px dotted;
+	border-bottom: 1px dotted;
 }
 
 .ProseMirror cite {
-  font-style: italic;
+	font-style: italic;
 }
 
 .ProseMirror hr {
@@ -177,11 +177,13 @@ blockquote p {
 	margin: 0;
 }
 
-ol, ul {
+ol,
+ul {
 	margin-bottom: 0.3em;
 }
 
-ol p, ul p {
+ol p,
+ul p {
 	margin: 0;
 }
 

@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type { Models } from 'appwrite';
 	import { page } from '$app/stores';
+	import Spinner from './Spinner.svelte';
 	export let user: Models.User<Models.Preferences> | undefined;
 	export let avatar = '';
 
 	const urls = ['notes', 'tags', 'archive', 'trash', 'settings'];
 </script>
 
-{#if user && avatar}
+<Spinner spinning={!(user && avatar)}>
 	<div class="main">
 		<div class="sidebar">
 			<div class="header">
@@ -29,25 +30,9 @@
 		</div>
 		<slot />
 	</div>
-{:else}
-	<div class="overlay">
-		<div class="lds-ellipsis">
-			<div />
-			<div />
-			<div />
-			<div />
-		</div>
-	</div>
-{/if}
+</Spinner>
 
 <style>
-	.lds-ellipsis {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-
 	.main {
 		display: flex;
 		height: 100vh;

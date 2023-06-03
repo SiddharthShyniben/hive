@@ -19,14 +19,16 @@
 
 	function make() {
 		const text = 'Hello, world!';
-		createNote(text).then(() => alert('done!')).catch(console.error)
+		createNote(text)
+			.then(() => alert('done!'))
+			.catch(console.error);
 	}
 </script>
 
 <Sidebar {user} {avatar}>
-	<div class='main'>
+	<div class="main">
 		<h1>My Notes</h1>
-		<div class='notes'>
+		<div class="notes">
 			<Note color="yellow" border="3" classes="central">
 				<span class="dim">New note...</span>
 			</Note>
