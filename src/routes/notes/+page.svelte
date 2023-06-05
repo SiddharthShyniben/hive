@@ -2,7 +2,7 @@
 	import Sidebar from '$lib/Sidebar.svelte';
 	import Note from '$lib/Note.svelte';
 	import type { Models } from 'appwrite';
-	import { tryGetUser, avatars, createNote, getNotes, updateNote } from '../../appwrite';
+	import { tryGetUser, avatars, createNote, getNotes, updateNote, colors } from '../../appwrite';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import Spinner from '$lib/Spinner.svelte';
@@ -64,6 +64,14 @@
 				new Date(a.$updatedAt || a.$createdAt).getTime()
 		);
 	}
+
+	function getColorName(c: string) {
+		console.log(c);
+		console.log(colors);
+		const color = colors.find((color: string) => color[0] == c);
+		console.log(color)
+		return color;
+	}
 </script>
 
 <svelte:window on:beforeunload={beforeunload} />
@@ -74,10 +82,14 @@
 			<h1>My Notes</h1>
 			<div class="notes">
 				<Note bind:value color="yellow" border="3" on:closed={newNote} />
+				{#each notes as note}
+					<Note
+						bind:value={note.note}
+						color={getColorName(note.color)}
+						border={note.border}
+						on:closed={saveNote(note.$id)} />
+				{/each}
 			</div>
-			{#each notes as note}
-				<Note bind:value={note.note} color="yellow" border="3" on:closed={saveNote(note.$id)} />
-			{/each}
 		</div>
 	</Sidebar>
 </Spinner>

@@ -7,6 +7,9 @@ const database = new Databases(client);
 export default client;
 export { account, avatars };
 
+const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+export const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'grey'];
+
 export async function loggedIn() {
 	try {
 		return !!(await account.get());
@@ -48,7 +51,9 @@ export async function createNote(note: string) {
 	const user = await account.get();
 	return database.createDocument('notes', '646f231152e0b50ec88c', ID.unique(), {
 		note,
-		user: user.email
+		user: user.email,
+		color: colors[random(0, colors.length)].slice(0, 1),
+		border: random(1, 5)
 	});
 }
 

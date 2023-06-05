@@ -24,20 +24,22 @@
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
 		}
+		if (!expandable) return;
 		window.addEventListener('resize', handlePositioning);
 	});
 
 	export let expandable = true;
 	export let expanded = false;
 	function toggleNoteEditor() {
+		console.log('handlePositioning');
+		if (!expandable) return;
 		handlePositioning();
-		if (expandable) {
-			if (!expanded) open();
-		}
+		if (!expanded) open();
 	}
 
 	function handlePositioning() {
 		console.log('Resize');
+		if (!expandable) return;
 		const rect = element.getBoundingClientRect();
 		const topPercent = (rect.top / window.innerHeight) * 100;
 		const leftPercent = (rect.left / window.innerWidth) * 100;
@@ -46,12 +48,14 @@
 	}
 
 	function handleKey(e: KeyboardEvent) {
+		if (!expandable) return;
 		if (expanded) {
 			if (e.key === 'Escape') close();
 		} else if (e.key === 'Enter') open();
 	}
 
 	function closeNote(e: KeyboardEvent) {
+		if (!expandable) return;
 		if (expanded) {
 			if (e.key === 'Escape') close();
 		}
@@ -93,11 +97,12 @@
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
-	class="note static {color} border-{border} {classes}"
+	class="note {color} border-{border} {classes}"
 	class:dim
 	class:long
 	class:expanded
 	class:expandable
+	class:absolute={!expandable}
 	on:click={toggleNoteEditor}
 	on:keydown={handleKey}
 	use:clickOutside={() => (expanded = false)}
@@ -213,6 +218,10 @@
 		width: 18rem;
 		height: 12.5rem;
 		animation: static 1.75s forwards;
+	}
+
+	.absolute {
+		position: absolute !important;
 	}
 
 	@keyframes static {
