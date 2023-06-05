@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fancyapps/ui": "^5.0.19",
 		"@tiptap/extension-bubble-menu": "^2.0.3",
 		"@tiptap/starter-kit": "^2.0.3",
 		"appwrite": "^11.0.0",
