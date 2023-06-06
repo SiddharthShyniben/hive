@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Fancybox } from "@fancyapps/ui";
 	import { createEventDispatcher, onMount } from 'svelte';
 	import TipTap from './TipTap.svelte';
 
@@ -24,27 +25,13 @@
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
 		}
-		if (!expandable) return;
-		window.addEventListener('resize', handlePositioning);
+		Fancybox.bind("[data-fancybox]", {animated: true});
 	});
 
 	export let expandable = true;
 	export let expanded = false;
 	function toggleNoteEditor() {
-		console.log('handlePositioning');
-		if (!expandable) return;
-		handlePositioning();
-		if (!expanded) open();
-	}
-
-	function handlePositioning() {
-		console.log('Resize');
-		if (!expandable) return;
-		const rect = element.getBoundingClientRect();
-		const topPercent = (rect.top / window.innerHeight) * 100;
-		const leftPercent = (rect.left / window.innerWidth) * 100;
-		element.style.top = `calc(${topPercent}% - 1rem)`;
-		element.style.left = `calc(${leftPercent}% - 1rem)`;
+		// TODO
 	}
 
 	function handleKey(e: KeyboardEvent) {
@@ -85,9 +72,9 @@
 	const dispatch = createEventDispatcher();
 	export let value = '';
 
-	const open = () => (expanded = true);
+	const open = () => {
+	};
 	const close = () => {
-		expanded = false;
 		dispatch('closed', { value });
 	};
 </script>
@@ -105,16 +92,13 @@
 	class:absolute={!expandable}
 	on:click={toggleNoteEditor}
 	on:keydown={handleKey}
-	use:clickOutside={() => (expanded = false)}
+	use:clickOutside={close}
 	tabindex="0"
+	data-fancybox data-src="#dialog-content"
 >
-	{#if !expanded}
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		<span bind:this={data}><slot />{@html value}</span>
-	{:else}
-		<TipTap bind:value />
-	{/if}
-	{#if collaborator && !expanded}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	<span bind:this={data}><slot />{@html value}</span>
+	{#if collaborator}
 		{#each collaborators as collaborator, i}
 			<img
 				src="https://picsum.photos/100"
@@ -123,9 +107,16 @@
 			/>
 		{/each}
 	{/if}
+	<div id="dialog-content"
+		class="note {color} border-{border} {classes}"
+		class:long
+		style="width: 70vw; height: 70vh">
+		<TipTap bind:value />
+	</div>
 </div>
 
 <style>
+	@import "@fancyapps/ui/dist/fancybox/fancybox.css";
 	.note {
 		background-color: #101010;
 		margin: 1rem;
@@ -222,6 +213,19 @@
 
 	.absolute {
 		position: absolute !important;
+	}
+
+	#dialog-content {
+		opacity: 0;
+		transition: opacity 1s;
+	}
+	
+	#dialog-content.fancybox__content {
+		opacity: 1;
+	}
+
+	#dialog-content.f-fadeOut {
+		opacity: 0;
 	}
 
 	@keyframes static {
