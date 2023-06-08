@@ -10,8 +10,7 @@
 	loggedIn().then((yes) => {
 		if (yes) {
 			goto('/notes');
-		}
-		spinning = false;
+		} else spinning = false;
 	});
 
 	function submit(): void {
