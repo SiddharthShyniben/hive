@@ -21,43 +21,22 @@
 	let long = forceShort ? false : forceLong ? true : false;
 	const id = Math.floor(Math.random() * 1e5);
 
+	export let expandable = true;
+
+	const dispatch = createEventDispatcher();
+	export let value = '';
+
 	onMount(() => {
 		if (!forceShort) {
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
 		}
-		if (expandable) Fancybox.bind(`[data-fancybox-${id}]`, { animated: true });
+		if (expandable)
+			Fancybox.bind(`[data-fancybox-${id}]`, {
+				animated: true,
+				on: { close: () => dispatch('closed', { value }) }
+			});
 	});
-
-	export let expandable = true;
-	
-	type AnyFunction = (...args: unknown[]) => unknown;
-
-	function clickOutside(element: HTMLDivElement, callbackFunction: AnyFunction) {
-		function onClick(event: MouseEvent) {
-			if (!element.contains(event.target as Node)) {
-				callbackFunction();
-			}
-		}
-
-		document.body.addEventListener('click', onClick);
-
-		return {
-			update(newCallbackFunction: AnyFunction) {
-				callbackFunction = newCallbackFunction;
-			},
-			destroy() {
-				document.body.removeEventListener('click', onClick);
-			}
-		};
-	}
-
-	const dispatch = createEventDispatcher();
-	export let value = '';
-
-	const close = () => {
-		dispatch('closed', { value });
-	};
 </script>
 
 <div
@@ -67,9 +46,8 @@
 	class:long
 	class:expandable
 	class:absolute={!expandable}
-	use:clickOutside={close}
-	{...{[`data-fancybox-${id}`]: true}}
-	data-src="#dialog-content"
+	{...{ [`data-fancybox-${id}`]: true }}
+	data-src="#dialog-content-{id}"
 >
 	<span bind:this={data}>
 		<slot />
@@ -87,10 +65,11 @@
 	{/if}
 	{#if expandable}
 		<div
-			id="dialog-content"
+			id="dialog-content-{id}"
 			class="note {color} border-{border} {classes}"
 			class:long
-			style="display: none; width: 70vw; height: 70vh">
+			style="display: none; width: 70vw; height: 70vh"
+		>
 			<TipTap bind:value />
 		</div>
 	{/if}
