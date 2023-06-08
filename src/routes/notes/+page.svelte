@@ -7,7 +7,8 @@
 	import { tryGetUser, avatars, createNote, getNotes, updateNote, colors } from '../../appwrite';
 
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/environment';
+	import { browser, dev } from '$app/environment';
+	import logger from '../../log';
 
 	let spinning = true;
 	let saving = false;
@@ -17,6 +18,8 @@
 	let notes: Models.Document[] = [];
 	export let value = 'New note...';
 
+	const { log } = logger(dev);
+
 	let beforeunload: (() => boolean) | null = () => true;
 	$: beforeunload = saving ? () => true : null;
 
@@ -25,25 +28,35 @@
 		await fn();
 		saving = false;
 	};
+	const spinWhile = async (fn: () => Promise<unknown>) => {
+		spinning = true;
+		await fn();
+		spinning = false;
+	};
 
 	const resetNote = () => (value = 'New note...');
 	const setNoteCounter = () => (noteCount = `${notes.length} notes`);
 
-	saveWhile(async () => {
+	spinWhile(async () => {
+		log('fetching user...');
 		const account = await tryGetUser();
 		if (!account) {
+			log('not logged in');
 			if (browser) goto('/login');
 			return;
 		}
 		avatar = avatars.getInitials().toString();
 		user = account;
 
+		log('updating notes...');
 		notes = sortNotes((await getNotes()).documents);
 		setNoteCounter();
+		log('updated notes');
 	});
 
 	async function newNote(event: CustomEvent<{ value: string }>) {
 		return saveWhile(async () => {
+			log('creating note');
 			resetNote();
 			notes = [await createNote(event.detail.value), ...notes];
 			setNoteCounter();
@@ -52,6 +65,7 @@
 
 	function saveNote(id: string) {
 		return function (event: CustomEvent<{ value: string }>) {
+			log('saving note', id);
 			saveWhile(async () => {
 				resetNote();
 				await updateNote(id, event.detail.value);

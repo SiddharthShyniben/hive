@@ -2,27 +2,34 @@
 	import { createUser, isValid, loggedIn } from '../../appwrite';
 	import { goto } from '$app/navigation';
 	import Spinner from '$lib/Spinner.svelte';
+	import logger from '../../log';
+	import { dev } from '$app/environment';
 	let spinning = true;
 	let username = '';
 	let email = '';
 	let password = '';
 
+	const { log, error } = logger(dev);
+
 	loggedIn().then((yes) => {
 		if (yes) {
+			log('redirecting');
 			goto('/notes');
 		} else spinning = false;
 	});
 
 	function submit(): void {
+		log('submitting', username, email, password);
 		spinning = true;
-		console.log(username, email, password);
 		createUser(username, email, password)
 			?.then(() => {
 				// TODO: auto login
 				// TODO better error handling
+				log('redirecting');
 				goto('/notes');
 			})
 			.catch((e) => {
+				error(e);
 				spinning = false;
 				alert(e.message);
 				username = '';
