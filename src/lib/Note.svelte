@@ -90,7 +90,7 @@
 			id="dialog-content"
 			class="note {color} border-{border} {classes}"
 			class:long
-			style="width: 70vw; height: 70vh">
+			style="display: none; width: 70vw; height: 70vh">
 			<TipTap bind:value />
 		</div>
 	{/if}
