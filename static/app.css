@@ -195,3 +195,9 @@ pre {
 	padding: 1em;
 	background: #131313;
 }
+
+.note :first-child:is(h1), .note :first-child:is(h2),
+.note :first-child:is(h3), .note :first-child:is(h4),
+.note :first-child:is(h5), .note :first-child:is(h6) {
+	margin-top: 0;
+}
