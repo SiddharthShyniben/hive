@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Fancybox } from "@fancyapps/ui";
+	import { Fancybox } from '@fancyapps/ui';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import TipTap from './TipTap.svelte';
 
@@ -19,35 +19,18 @@
 	let data!: HTMLElement;
 
 	let long = forceShort ? false : forceLong ? true : false;
+	const id = Math.floor(Math.random() * 1e5);
 
 	onMount(() => {
 		if (!forceShort) {
 			let charCount = (data?.innerText || '').length;
 			long = forceLong || charCount > 160;
 		}
-		Fancybox.bind("[data-fancybox]", {animated: true});
+		if (expandable) Fancybox.bind(`[data-fancybox-${id}]`, { animated: true });
 	});
 
 	export let expandable = true;
-	export let expanded = false;
-	function toggleNoteEditor() {
-		// TODO
-	}
-
-	function handleKey(e: KeyboardEvent) {
-		if (!expandable) return;
-		if (expanded) {
-			if (e.key === 'Escape') close();
-		} else if (e.key === 'Enter') open();
-	}
-
-	function closeNote(e: KeyboardEvent) {
-		if (!expandable) return;
-		if (expanded) {
-			if (e.key === 'Escape') close();
-		}
-	}
-
+	
 	type AnyFunction = (...args: unknown[]) => unknown;
 
 	function clickOutside(element: HTMLDivElement, callbackFunction: AnyFunction) {
@@ -72,32 +55,27 @@
 	const dispatch = createEventDispatcher();
 	export let value = '';
 
-	const open = () => {
-	};
 	const close = () => {
 		dispatch('closed', { value });
 	};
 </script>
 
-<svelte:window on:keydown={closeNote} />
-
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
 	class="note {color} border-{border} {classes}"
 	class:dim
 	class:long
-	class:expanded
 	class:expandable
 	class:absolute={!expandable}
-	on:click={toggleNoteEditor}
-	on:keydown={handleKey}
 	use:clickOutside={close}
-	tabindex="0"
-	data-fancybox data-src="#dialog-content"
+	{...{[`data-fancybox-${id}`]: true}}
+	data-src="#dialog-content"
 >
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	<span bind:this={data}><slot />{@html value}</span>
+	<span bind:this={data}>
+		<slot />
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html value}
+	</span>
 	{#if collaborator}
 		{#each collaborators as collaborator, i}
 			<img
@@ -107,16 +85,19 @@
 			/>
 		{/each}
 	{/if}
-	<div id="dialog-content"
-		class="note {color} border-{border} {classes}"
-		class:long
-		style="width: 70vw; height: 70vh">
-		<TipTap bind:value />
-	</div>
+	{#if expandable}
+		<div
+			id="dialog-content"
+			class="note {color} border-{border} {classes}"
+			class:long
+			style="width: 70vw; height: 70vh">
+			<TipTap bind:value />
+		</div>
+	{/if}
 </div>
 
 <style>
-	@import "@fancyapps/ui/dist/fancybox/fancybox.css";
+	@import '@fancyapps/ui/dist/fancybox/fancybox.css';
 	.note {
 		background-color: #101010;
 		margin: 1rem;
@@ -127,12 +108,6 @@
 		border: 3px solid #95a5a6;
 		border-radius: 20px;
 		overflow: scroll;
-	}
-
-	.note.expandable {
-		position: absolute;
-		z-index: 1000;
-		transition: all 500ms;
 	}
 
 	.long {
@@ -197,41 +172,16 @@
 		z-index: 49;
 	}
 
-	.expanded {
-		position: absolute;
-		width: 70%;
-		height: 70%;
-		top: 15% !important;
-		left: 15% !important;
-	}
-
-	.note:not(.expanded) {
-		width: 18rem;
-		height: 12.5rem;
-		animation: static 1.75s forwards;
-	}
-
-	.absolute {
-		position: absolute !important;
-	}
-
 	#dialog-content {
 		opacity: 0;
 		transition: opacity 1s;
 	}
-	
+
 	#dialog-content.fancybox__content {
 		opacity: 1;
 	}
 
 	#dialog-content.f-fadeOut {
 		opacity: 0;
-	}
-
-	@keyframes static {
-		to {
-			position: static;
-			transition: none;
-		}
 	}
 </style>

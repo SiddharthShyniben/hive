@@ -66,11 +66,7 @@
 	}
 
 	function getColorName(c: string) {
-		console.log(c);
-		console.log(colors);
-		const color = colors.find((color: string) => color[0] == c);
-		console.log(color)
-		return color;
+		return colors.find((color: string) => color[0] == c);
 	}
 </script>
 
@@ -87,7 +83,8 @@
 						bind:value={note.note}
 						color={getColorName(note.color)}
 						border={note.border}
-						on:closed={saveNote(note.$id)} />
+						on:closed={saveNote(note.$id)}
+					/>
 				{/each}
 			</div>
 		</div>
