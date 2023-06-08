@@ -14,24 +14,33 @@
 	<div class="main">
 		<div class="sidebar">
 			<div class="header">
-				<img src={avatar} alt={user?.name} />
-				<h2>{user?.name}</h2>
-				<small>
-					{noteCount}
-					{#if spinning}
-						&nbsp;(Saving...)
-					{/if}
-				</small>
-				<hr />
-				<ul>
-					{#each urls as url}
+				<div>
+					<img src={avatar} alt={user?.name} />
+					<h2>{user?.name}</h2>
+					<small>
+						{noteCount}
+						{#if spinning}
+							&nbsp;(Saving...)
+						{/if}
+					</small>
+					<hr />
+				</div>
+				<div class="sidebar-sections">
+					<ul>
+						{#each urls as url}
+							<li>
+								<a href="/{url}" class:active={$page.route.id?.includes(url)}>
+									{url[0].toUpperCase()}{url.slice(1)}
+								</a>
+							</li>
+						{/each}
+					</ul>
+					<ul class="smaller">
 						<li>
-							<a href="/{url}" class:active={$page.route.id?.includes(url)}>
-								{url[0].toUpperCase()}{url.slice(1)}
-							</a>
+							<a href="/logout" class:active={$page.route.id?.includes('logout')}>Log Out</a>
 						</li>
-					{/each}
-				</ul>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<slot />
@@ -57,6 +66,9 @@
 
 	.sidebar .header {
 		margin: 1.5rem;
+		height: calc(100% - 3rem);
+		display: flex;
+		flex-direction: column;
 	}
 
 	.sidebar h2 {
@@ -86,6 +98,11 @@
 		margin-bottom: 0.67em;
 	}
 
+	ul.smaller li {
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+
 	ul li a {
 		text-decoration: none;
 		color: #fff;
@@ -93,5 +110,14 @@
 
 	ul li a:not(.active) {
 		color: #898989;
+	}
+
+	.sidebar-sections {
+		flex-grow: 100;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		overflow: hidden;
 	}
 </style>
