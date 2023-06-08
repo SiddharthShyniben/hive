@@ -14,13 +14,14 @@
 	<div class="main">
 		<div class="sidebar">
 			<div class="header">
-				<img src={avatar} alt={user.name} />
-				<h2>{user.name}</h2>
-				<!-- TODO time of day -->
-				<small>{noteCount}</small>
-				{#if spinning}
-					<small><br />Saving...</small>
-				{/if}
+				<img src={avatar} alt={user?.name} />
+				<h2>{user?.name}</h2>
+				<small>
+					{noteCount}
+					{#if spinning}
+						&nbsp;(Saving...)
+					{/if}
+				</small>
 				<hr />
 				<ul>
 					{#each urls as url}
