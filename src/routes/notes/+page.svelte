@@ -18,6 +18,8 @@
 	let notes: Models.Document[] = [];
 	export let value = 'New note...';
 
+	type NoteEvent = CustomEvent<{value: string, color: string}>;
+
 	const { log } = logger(dev);
 
 	let beforeunload: (() => boolean) | null = () => true;
@@ -54,7 +56,7 @@
 		log('updated notes');
 	});
 
-	async function newNote(event: CustomEvent<{ value: string }>) {
+	async function newNote(event: NoteEvent) {
 		return saveWhile(async () => {
 			log('creating note');
 			resetNote();
@@ -64,15 +66,20 @@
 	}
 
 	function saveNote(id: string) {
-		return function (event: CustomEvent<{ value: string }>) {
-			log('saving note', id);
+		return function (event: NoteEvent) {
+			log('saving note', id, JSON.stringify(event.detail));
 			saveWhile(async () => {
 				resetNote();
-				await updateNote(id, event.detail.value);
+				await updateNote(id, event.detail);
 				notes = sortNotes(
 					notes.map((note) =>
 						note.$id === id
-							? { ...note, note: event.detail.value, $updatedAt: new Date().toISOString() }
+							? {
+								...note,
+								note: event.detail.value,
+								color: event.detail.color,
+								$updatedAt: new Date().toISOString()
+							}
 							: note
 					)
 				);

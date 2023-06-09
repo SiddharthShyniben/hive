@@ -7,12 +7,25 @@ body {
 	overflow-x: hidden;
 }
 
+:root {
+	--yellow: #f1c40f;
+	--blue: #3498db;
+	--red: #e74c3c;
+	--green: #1abc9c;
+	--purple: #9b59b6;
+	--orange: #e67e22;
+	--grey: #ccc9;
+	--gray: #ccc9;
+	--dim: #898989;
+	--bg: #131313;
+}
+
 input {
 	color: inherit;
 	padding: 0.75rem;
 	width: 22ch;
 	background-color: #0000;
-	border: 1px solid #ccc9;
+	border: 1px solid var(--grey);
 	border-radius: 20px;
 	border-bottom-right-radius: 0;
 	margin: 0.5rem 2rem;
@@ -24,7 +37,7 @@ button {
 	margin: 0.5em;
 	margin-left: 2rem;
 	background: none;
-	border: 1px solid #ccc9;
+	border: 1px solid var(--grey);
 	border-radius: 20px;
 	border-bottom-right-radius: 0;
 	color: inherit;
@@ -40,8 +53,8 @@ input:hover {
 
 button:focus:not(disabled),
 input:focus {
-	border-color: #f1c40f;
-	outline: solid #f1c40f;
+	border-color: var(--yellow); /* YELLOW */
+	outline: solid var(--yellow);
 }
 
 button[disabled] {
@@ -53,7 +66,7 @@ button {
 	min-width: 5rem;
 }
 a {
-	color: #3498db;
+	color: var(--blue);
 }
 
 a:hover {
@@ -61,7 +74,7 @@ a:hover {
 }
 
 a:visited {
-	color: #3498db;
+	color: var(--blue);
 }
 
 .lds-ellipsis {
@@ -76,7 +89,7 @@ a:visited {
 	width: 13px;
 	height: 13px;
 	border-radius: 50%;
-	background: #f1c40f;
+	background: var(--yellow);
 	animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -131,7 +144,7 @@ a:visited {
 }
 
 .dim {
-	color: #898989;
+	color: var(--dim);
 }
 
 .ProseMirror abbr {
@@ -143,7 +156,7 @@ a:visited {
 }
 
 .ProseMirror hr {
-	background: #898989;
+	background: var(--dim);
 	border: none;
 	display: block;
 	height: 1px;
@@ -172,7 +185,7 @@ p {
 }
 
 blockquote {
-	border-left: 4px solid #898989;
+	border-left: 4px solid var(--dim);
 	padding: 0.6em 1.2em;
 	margin-left: 0;
 }
@@ -193,7 +206,7 @@ ul p {
 
 pre {
 	padding: 1em;
-	background: #131313;
+	background: var(--bg);
 }
 
 .note :first-child:is(h1),
@@ -203,4 +216,8 @@ pre {
 .note :first-child:is(h5),
 .note :first-child:is(h6) {
 	margin-top: 0;
+}
+
+button.f-button {
+	justify-content: flex-end;
 }

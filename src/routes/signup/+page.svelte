@@ -56,7 +56,7 @@
 	#main {
 		width: 30rem;
 		min-height: 20rem;
-		border: 3px solid #f1c40f;
+		border: 3px solid var(--yellow);
 		border-radius: 20px;
 		border-bottom-right-radius: 0;
 		padding: 1rem;

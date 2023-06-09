@@ -2,6 +2,7 @@
 	import { Fancybox } from '@fancyapps/ui';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import TipTap from './TipTap.svelte';
+	import { colors } from '../appwrite';
 
 	export let color = 'grey';
 	export let border = '1';
@@ -34,9 +35,17 @@
 		if (expandable)
 			Fancybox.bind(`[data-fancybox-${id}]`, {
 				animated: true,
-				on: { close: () => dispatch('closed', { value }) }
+				on: { close: () => dispatch('closed', { value, color: color[0] }) },
 			});
 	});
+
+	let i: number | null = null;
+
+	function swapColor() {
+		if (i === null) i = colors.indexOf(color);
+		i = (i + 1) % colors.length;
+		color = colors[i];
+	}
 </script>
 
 <div
@@ -66,11 +75,16 @@
 	{#if expandable}
 		<div
 			id="dialog-content-{id}"
-			class="note {color} border-{border} {classes}"
+			class="dialog note border-{border} {classes}"
 			class:long
-			style="display: none; width: 70vw; height: 70vh"
+			style="display: none; width: 70vw; height: 70vh; border-color: var(--{color})"
 		>
-			<TipTap bind:value />
+			<div class="dialog-inner">
+				<TipTap bind:value />
+				<div id="note-settings">
+					<div id="color-picker" class="{color}" on:click={swapColor}></div>
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>
@@ -87,6 +101,7 @@
 		border: 3px solid #95a5a6;
 		border-radius: 20px;
 		overflow: scroll;
+		transition: border-color 500ms;
 	}
 
 	.long {
@@ -94,22 +109,40 @@
 	}
 
 	.blue {
-		border-color: #3498db;
+		border-color: var(--blue);
+	}
+	#color-picker.blue {
+		background-color: var(--blue);
 	}
 	.red {
-		border-color: #e74c3c;
+		border-color: var(--red);
+	}
+	#color-picker.red {
+		background-color: var(--red);
 	}
 	.green {
-		border-color: #1abc9c;
+		border-color: var(--green);
+	}
+	#color-picker.green {
+		background-color: var(--green);
 	}
 	.purple {
-		border-color: #9b59b6;
+		border-color: var(--purple);
+	}
+	#color-picker.purple {
+		background-color: var(--purple);
 	}
 	.yellow {
-		border-color: #f1c40f;
+		border-color: var(--yellow);
+	}
+	#color-picker.yellow {
+		background-color: var(--yellow);
 	}
 	.orange {
-		border-color: #e67e22;
+		border-color: var(--orange);
+	}
+	#color-picker.orange {
+		background-color: var(--orange);
 	}
 
 	.border-1 {
@@ -151,16 +184,41 @@
 		z-index: 49;
 	}
 
-	#dialog-content {
+	.dialog {
 		opacity: 0;
-		transition: opacity 1s;
+		padding: 0;
+		transition: opacity 1s, border-color 500ms;
+		overflow: visible;
 	}
 
-	#dialog-content.fancybox__content {
+	.dialog.fancybox__content {
 		opacity: 1;
 	}
 
-	#dialog-content.f-fadeOut {
+	.dialog.f-fadeOut {
 		opacity: 0;
+	}
+
+	.dialog-inner {
+		position: relative;
+		padding: 1rem;
+		height: 100%;
+	}
+
+	#note-settings {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		border-radius: 10px;
+		padding: 0.5rem;
+	}
+
+	#color-picker {
+		height: 2rem;
+		width: 2rem;
+		border: 1px solid #101010;
+		border-radius: 50%;
+		transition: background-color 500ms;
+		background-color: white;
 	}
 </style>

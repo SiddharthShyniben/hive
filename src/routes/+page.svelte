@@ -129,7 +129,7 @@
 
 <style>
 	.hive {
-		color: #f1c40f;
+		color: var(--yellow);
 	}
 
 	.notes :global(ul) {

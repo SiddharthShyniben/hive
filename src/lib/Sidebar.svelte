@@ -56,7 +56,7 @@
 	.sidebar {
 		min-width: 15rem;
 		z-index: 99;
-		background-color: #131313;
+		background-color: var(--bg);
 	}
 
 	img {
@@ -78,7 +78,7 @@
 	}
 
 	.sidebar small {
-		color: #898989;
+		color: var(--bg);
 		transform: translateY(-1000%);
 	}
 
@@ -119,5 +119,9 @@
 		flex-direction: column;
 		justify-content: space-between;
 		overflow: hidden;
+	}
+
+	small {
+		color: var(--dim) !important;
 	}
 </style>
