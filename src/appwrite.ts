@@ -1,4 +1,4 @@
-import { Account, Avatars, Client, Databases, ID, Query, type Models } from 'appwrite';
+import { Account, Avatars, Client, Databases, ID, Query } from 'appwrite';
 
 const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('hive');
 const account = new Account(client);
@@ -57,8 +57,11 @@ export async function createNote(note: string) {
 	});
 }
 
-export function updateNote(id: string, note: {color: string, value: string}) {
-	return database.updateDocument('notes', '646f231152e0b50ec88c', id, {note: note.value, color: note.color});
+export function updateNote(id: string, note: { color: string; value: string }) {
+	return database.updateDocument('notes', '646f231152e0b50ec88c', id, {
+		note: note.value,
+		color: note.color
+	});
 }
 
 export async function getNotes() {

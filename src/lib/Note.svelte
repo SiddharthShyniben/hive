@@ -35,7 +35,7 @@
 		if (expandable)
 			Fancybox.bind(`[data-fancybox-${id}]`, {
 				animated: true,
-				on: { close: () => dispatch('closed', { value, color: color[0] }) },
+				on: { close: () => dispatch('closed', { value, color: color[0] }) }
 			});
 	});
 
@@ -82,7 +82,7 @@
 			<div class="dialog-inner">
 				<TipTap bind:value />
 				<div id="note-settings">
-					<div id="color-picker" class="{color}" on:click={swapColor}></div>
+					<div id="color-picker" class={color} on:click={swapColor} />
 				</div>
 			</div>
 		</div>

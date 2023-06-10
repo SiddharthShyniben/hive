@@ -18,7 +18,7 @@
 	let notes: Models.Document[] = [];
 	export let value = 'New note...';
 
-	type NoteEvent = CustomEvent<{value: string, color: string}>;
+	type NoteEvent = CustomEvent<{ value: string; color: string }>;
 
 	const { log } = logger(dev);
 
@@ -75,11 +75,11 @@
 					notes.map((note) =>
 						note.$id === id
 							? {
-								...note,
-								note: event.detail.value,
-								color: event.detail.color,
-								$updatedAt: new Date().toISOString()
-							}
+									...note,
+									note: event.detail.value,
+									color: event.detail.color,
+									$updatedAt: new Date().toISOString()
+							  }
 							: note
 					)
 				);
